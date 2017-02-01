@@ -1,0 +1,25 @@
+{
+  "name": "woleet-js-widget",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "babel-preset-latest": "^6.22.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-less": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglify": "^2.0.1",
+    "gulp-watch": "^4.3.11",
+    "less": "^2.7.2"
+  },
+  "scripts": {
+    "build": "gulp",
+    "prestart": "docker build -t woleet-widget .",
+    "start": "docker run -d -p 80:80 --name 'woleet-widget' woleet-widget",
+    "poststart": "docker logs woleet-widget --tail 100 -f",
+    "stop": "docker stop woleet-widget",
+    "poststop": "docker rm woleet-widget",
+    "restart": "npm stop && npm start"
+  }
+}

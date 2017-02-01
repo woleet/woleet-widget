@@ -1,0 +1,200 @@
+// Color variables (appears count calculates by raw css)
+@color0: #4c668a; // Appears 3 times
+@color1: #ffffff; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width3: 180px; // Appears 2 times
+
+@logo_icon: logo.svg;
+@info_icon: information.svg;
+@checked_icon: checked.svg;
+@invalid_icon: invalid.svg;
+@refresh_icon: refresh.svg;
+
+.widget {
+  background-color: @color0;
+  border-radius: 20px;
+  border: 3px solid @color0;
+  height: 130px;
+  width: 330px;
+  > div {
+    background: #f6f6f6;
+    border-radius: 0 0 17px 17px;
+    height: 85px;
+    padding: 5px 20px;
+
+    &.head {
+      background: @color0;
+      border-radius: 17px;
+      height: 25px;
+      line-height: 25px;
+    }
+
+    > div {
+      display: inline-flex;
+      height: inherit;
+    }
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.woleet-logo {
+  background-size: 100%;
+  background: data-uri(@logo_icon) no-repeat;
+  margin-top: 1px;
+  width: 85px;
+}
+
+div.messageBox {
+  background: #ffcc55;
+  border-radius: 5px;
+  height: 74px;
+  margin: 19px 20px;
+  text-align: center;
+  width: @width3;
+}
+
+div.info {
+  background-size: 100%;
+  background: @color1 data-uri(@info_icon) no-repeat;
+  border-radius: 50%;
+  border: none;
+  height: 20px;
+  margin-top: -15px;
+  width: 20px;
+}
+
+div.buttonBox {
+  height: 0;
+  margin-left: 185px;
+  margin-top: -15px;
+}
+
+.dropZone {
+  height: inherit;
+  outline: none;
+  padding-top: 99px;
+}
+
+button.info {
+  &:focus {
+    outline: none;
+  }
+}
+
+.text {
+  color: #333333;
+  padding: 5px 5px 0 5px;
+  &.little {
+    font-size: small;
+    padding: 0 5px;
+  }
+}
+
+.dropZoneContainer {
+  border-radius: 1em;
+  border: 2px dashed;
+  color: #999999;
+  height: 2.6em;
+  margin: .3em 2em;
+  overflow: hidden;
+  padding: 1em 0;
+  text-align: center;
+  width: 11em;
+  &.expanded {
+    width: 15em;
+  }
+}
+
+.subContainer {
+  margin-top: -2.5em;
+}
+
+.infoStatus {
+  display: none;
+  height: 70px;
+  margin: 6px 0;
+  width: 70px;
+  &.validated {
+    background-size: 100%;
+    background: data-uri(@checked_icon) no-repeat;
+    display: block;
+  }
+  &.error {
+    background-size: 100%;
+    background: data-uri(@invalid_icon) no-repeat;
+    display: block;
+  }
+}
+
+.infoBox {
+  &.reduced {
+    display: block;
+    > .messageBox {
+      margin: 19px -5px;
+      width: 100px;
+      > .buttonBox {
+        margin-left: 85px;
+      }
+    }
+  }
+  &.expanded > .messageBox {
+    width: 200px;
+  }
+}
+
+.tooltip {
+  border-bottom: 1px dotted black;
+  display: inline-block;
+  position: relative;
+  .tooltiptext {
+    background-color: rgba(85, 85, 85, 0.65);
+    border-radius: 6px;
+    color: @color1;
+    margin: -34px -50px;
+    padding: 5px 0;
+    position: absolute;
+    text-align: center;
+    visibility: hidden;
+    width: @width3;
+    z-index: 1;
+    &::after {
+      border: 5px solid transparent;
+      content: " ";
+      left: 60px;
+      margin-left: -5px;
+      position: absolute;
+      top: 100%;
+    }
+  }
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+    }
+  }
+}
+
+.reset-button {
+  background-size: 100% !important;
+  background: data-uri(@refresh_icon) no-repeat;
+  display: none;
+  float: right;
+  height: 10px;
+  width: 24px;
+}
+
+.clickable {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.progressBar {
+  background-color: rgba(139, 195, 74, 0.65);
+  height: 4.6em;
+  margin-top: -1em;
+  width: 0;
+}

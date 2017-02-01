@@ -1,0 +1,25 @@
+{
+  "name": "woleet-widget",
+  "description": "Woleet's web widget for DAB (Data Anchoring on Bitcoin) verification",
+  "main": "",
+  "keywords": [
+    "Woleet",
+    "chainpoint",
+    "receipt",
+    "verification",
+    "widget",
+    "bitcoin"
+  ],
+  "license": "MIT",
+  "homepage": "https://woleet.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "woleet-weblibs": "*"
+  }
+}
