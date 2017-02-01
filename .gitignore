@@ -1,4 +1,13 @@
-bower_components/
-node_modules/
-/watchers.xml
-.idea/
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+
+# Emacs temp files
+**~
+**.~
+
+# Node module
+**/node_modules/
+
+# Bower components
+**/bower_components
