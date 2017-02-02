@@ -109,7 +109,7 @@
 
         function init() {
             console.log('init');
-            content.dropZone.mainTextZone.text('drop file to verify');
+            content.dropZone.mainTextZone.text('drop the file to verify');
             content.dropZone.subTextZone.text('');
             content.info.message.buttonBox.button.tooltip.text('');
             content.dropZone.addClass('expanded').show();
