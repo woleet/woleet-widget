@@ -19,4 +19,4 @@ limitationsand runtime dependencies.
 
 # Using Woleet web libraries
 
-See [examples/index.html](examples/index.html) for an example of how to insert this widget in a web page.
+See [examples/index.html](examples/index.html) for examples about how to insert this widget in a web page.

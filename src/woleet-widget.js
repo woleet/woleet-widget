@@ -1,4 +1,4 @@
-(function(root){
+(function (root) {
     function Widget(hash, params) {
 
         if (hash && typeof hash == 'object') {
