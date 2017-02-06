@@ -2,12 +2,8 @@
 **/.idea/
 **/*.iml
 
-# Emacs temp files
-**~
-**.~
-
 # Node module
-**/node_modules/
+**/node_modules
 
 # Bower components
 **/bower_components

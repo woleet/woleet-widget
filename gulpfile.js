@@ -17,7 +17,7 @@ gulp.task('less', function () {
 
 // Uglify widget
 gulp.task("uglifyWidget", () => {
-    return gulp.src(['src/widget.js'])
+    return gulp.src(['src/woleet-widget.js'])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['latest']

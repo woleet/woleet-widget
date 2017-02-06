@@ -109,7 +109,7 @@
 
         function init() {
             console.log('init');
-            content.dropZone.mainTextZone.text('drop the file to verify');
+            content.dropZone.mainTextZone.text('Drop the file to verify');
             content.dropZone.subTextZone.text('');
             content.info.message.buttonBox.button.tooltip.text('');
             content.dropZone.addClass('expanded').show();
@@ -163,7 +163,7 @@
                     console.log(res);
                     state = 'done';
                     if (res.length) setVue('woleet-ok', formatDate(res[0].date));
-                    else setVue('need-receipt', 'drop its receipt');
+                    else setVue('need-receipt', 'Drop its receipt');
                 }, function (err) {
                     console.error(err);
                     setVue('error', err);
@@ -176,8 +176,8 @@
             let info = content.info.message.textZone;
             switch (vue) {
                 case 'need-receipt':
-                    info.text('File unknown');
-                    tip.text('You must set a receipt to validate this file');
+                    info.text('File unknown to Woleet');
+                    tip.text('You must provide a receipt to verify this file');
                     break;
                 case 'target_hash_mismatch':
                     info.text('The provided receipt is not meant for this file');
@@ -189,15 +189,15 @@
                     break;
                 case 'merkle_root_mismatch':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('the proof result does not match the receipt\'s merkle_root attribute');
+                    tip.text('The proof result does not match the receipt\'s merkle_root attribute');
                     break;
                 case 'non_sha256_target_proof_element':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('an attribute in proof (parent or left or right) in not a sha256 hash.');
+                    tip.text('An attribute in proof (parent or left or right) in not a SHA256 hash.');
                     break;
                 case 'invalid_parent_in_proof_element':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('parent does not match the sha256(left+right).');
+                    tip.text('Parent does not match the SHA256(left+right).');
                     break;
                 case 'invalid_receipt_format':
                     info.text('The provided receipt seems corrupted');
@@ -205,15 +205,15 @@
                     break;
                 case 'invalid_target_proof':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('The receipt does not match the chainpoint 1.x format');
+                    tip.text('The receipt does not match the Chainpoint 1.x format');
                     break;
                 case 'tx_not_found':
                     info.text('Transaction not found');
                     tip.text('The transaction linked by the receipt cannot be found');
                     break;
                 case 'error_while_getting_transaction':
-                    info.text('Error while getting transaction');
-                    tip.text('There were an error while getting transaction, that doesn\'t mean that it doesn\'t exist');
+                    info.text('Cannot get transaction');
+                    tip.text('There was an error while getting the transaction (try again)');
                     break;
                 default:
                     info.text(vue);
