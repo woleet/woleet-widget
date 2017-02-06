@@ -11,13 +11,24 @@
     "bitcoin"
   ],
   "license": "MIT",
-  "homepage": "https://woleet.io",
+  "homepage": "http://github.com/woleet/woleet-widget",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/woleet/woleet-widget.git"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "examples",
+    "res",
+    "src",
+    "build.sh",
+    "Dockerfile",
+    "gulpfile.js",
+    "index.html",
+    "package.json",
+    "README.md"
   ],
   "dependencies": {
     "woleet-weblibs": "*"
