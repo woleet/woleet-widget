@@ -43,7 +43,7 @@ To use the Woleet verification widget you have to include the following componen
 or their minimized equivalent:
 
 ```html
-<link href="../bower_components/woleet-widget/style.css" rel="stylesheet">
+<link href="../bower_components/woleet-widget/dist/style.css" rel="stylesheet">
 <script src="../bower_components/woleet-widget/dist/woleet-widget.min.js"></script>
 <script src="../bower_components/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
 ```
