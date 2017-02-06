@@ -196,7 +196,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             switch (vue) {
                 case 'need-receipt':
                     info.text('File unknown to Woleet');
-                    tip.text('You must set a receipt to validate this file');
+                    tip.text('You must provide a receipt to verify this file');
                     break;
                 case 'target_hash_mismatch':
                     info.text('The provided receipt is not meant for this file');

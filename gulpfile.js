@@ -24,7 +24,7 @@ gulp.task("uglifyWidget", () => {
         }))
         .pipe(gulp.dest("./dist/"))
         .pipe(uglify())
-        .pipe(rename("widget.min.js"))
+        .pipe(rename("woleet-widget.min.js"))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest("./dist/"))
 });
