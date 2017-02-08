@@ -125,7 +125,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var _file = void 0;
 
         function init() {
-            console.log('init');
             content.dropZone.mainTextZone.text('Drop the file to verify');
             content.dropZone.subTextZone.text('');
             content.info.message.buttonBox.button.tooltip.text('');
@@ -196,11 +195,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             switch (vue) {
                 case 'need-receipt':
                     info.text('File unknown to Woleet');
-                    tip.text('You must provide a receipt to verify this file');
+                    tip.text('The receipt cannot be retreived from Woleet: you must provide it to verify this file');
                     break;
                 case 'target_hash_mismatch':
                     info.text('The provided receipt is not meant for this file');
-                    tip.text('The receipt doesn\'t match the file');
+                    tip.text('The receipt\'s target_hash attribute doesn\'t match the file hash');
                     break;
                 case 'unable_to_parse_json':
                     info.text('The provided receipt cannot be parsed');
@@ -208,27 +207,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     break;
                 case 'merkle_root_mismatch':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('The proof result does not match the receipt\'s merkle_root attribute');
+                    tip.text('The receipt\'s merkle_root attribute does not match the proof result');
                     break;
                 case 'non_sha256_target_proof_element':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('An attribute in proof (parent or left or right) in not a SHA256 hash.');
+                    tip.text('An attribute in the proof (parent or left or right) in not a SHA256 hash');
                     break;
                 case 'invalid_parent_in_proof_element':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('Parent does not match the SHA256(left+right).');
+                    tip.text('A parent in the proof does not match SHA256(left+right).');
                     break;
                 case 'invalid_receipt_format':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('Missing attribute in the receipt\'s proof (parent or left or right).');
+                    tip.text('The proof miss an attribute (parent or left or right).');
                     break;
                 case 'invalid_target_proof':
                     info.text('The provided receipt seems corrupted');
-                    tip.text('The receipt does not match the Chainpoint 1.x format');
+                    tip.text('The receipt does not conform to the Chainpoint 1.x format');
                     break;
                 case 'tx_not_found':
                     info.text('Transaction not found');
-                    tip.text('The transaction linked by the receipt cannot be found');
+                    tip.text('The transaction targeted by the receipt cannot be found');
                     break;
                 case 'error_while_getting_transaction':
                     info.text('Cannot get transaction');
