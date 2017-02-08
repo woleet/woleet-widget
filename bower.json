@@ -1,6 +1,6 @@
 {
   "name": "woleet-widget",
-  "description": "Woleet's web widget for DAB (Data Anchoring on Bitcoin) verification",
+  "description": "Woleet's DAB (Data Anchoring on Bitcoin) verification widget",
   "main": "",
   "keywords": [
     "Woleet",
