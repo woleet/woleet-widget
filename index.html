@@ -2,12 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Woleet widget</title>
+    <title>Woleet Verification widget</title>
     <script src="bower_components/woleet-weblibs/dist/woleet-weblibs.js"></script>
     <link href="dist/style.css" rel="stylesheet">
     <script src="dist/woleet-widget.js"></script>
 </head>
 <body>
-<div class="woleet-widget"></div>
+
+<h1>Woleet verification widget</h1>
+
+<p>Use this widget to verify the timestamp and integrity of files anchored on the Bitcoin blockchain using the Woleet
+    platform (or any Chainpoint 1.x compatible anchoring tool).</p>
+<p>If the file was anchored publicly, then you don't need to provide the anchoring receipt (it is retieved live from
+    the woleet platform). Otherwise, you'll be asked to provide the Chainpoint 1.x anchoring receipt.</p>
+<br/><br/>
+
+<div style="text-align: center;">
+    <div style="display: inline-block;" class="woleet-widget"></div>
+</div>
+
 </body>
 </html>
