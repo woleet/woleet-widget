@@ -165,8 +165,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     woleet.verify.DAB(_file, receipt, function (e) {
                         progressBar.style({ width: e.progress * 100 + '%' });
                     }).then(function (res) {
-                        console.log(res);
-                        setVue('woleet-ok', formatDate(res.date));
+                        setVue('woleet-ok', formatDate(res.confirmedOn));
                         state = 'done';
                     }, function (err) {
                         setVue('error', err);
@@ -180,9 +179,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 woleet.verify.WoleetDAB(file, function (e) {
                     progressBar.style({ width: e.progress * 100 + '%' });
                 }).then(function (res) {
-                    console.log(res);
                     state = 'done';
-                    if (res.length) setVue('woleet-ok', formatDate(res[0].date));else setVue('need-receipt', 'Drop its receipt');
+                    if (res.length) setVue('woleet-ok', formatDate(res[0].confirmedOn));else setVue('need-receipt', 'Drop its receipt');
                 }, function (err) {
                     console.error(err);
                     setVue('error', err);
@@ -279,7 +277,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 case 'pending':
                     content.info.hide();
                     content.icon.hide();
-                    content.dropZone.mainTextZone.text('pending...');
+                    content.dropZone.mainTextZone.text('Hashing...');
                     content.dropZone.inputContainer.progressBarContainer.show();
                     setTooltip('');
                     break;

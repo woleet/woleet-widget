@@ -68,7 +68,6 @@
                 }
                 return root;
             }
-
         };
 
         const $touch = ((e = 'div', c) => {
@@ -144,8 +143,7 @@
                     woleet.verify.DAB(_file, receipt, (e) => {
                         progressBar.style({width: e.progress * 100 + '%'});
                     }).then(function (res) {
-                        console.log(res);
-                        setVue('woleet-ok', formatDate(res.date));
+                        setVue('woleet-ok', formatDate(res.confirmedOn));
                         state = 'done';
                     }, function (err) {
                         setVue('error', err);
@@ -160,9 +158,8 @@
                 woleet.verify.WoleetDAB(file, (e) => {
                     progressBar.style({width: e.progress * 100 + '%'});
                 }).then(function (res) {
-                    console.log(res);
                     state = 'done';
-                    if (res.length) setVue('woleet-ok', formatDate(res[0].date));
+                    if (res.length) setVue('woleet-ok', formatDate(res[0].confirmedOn));
                     else setVue('need-receipt', 'Drop its receipt');
                 }, function (err) {
                     console.error(err);
@@ -260,7 +257,7 @@
                 case 'pending':
                     content.info.hide();
                     content.icon.hide();
-                    content.dropZone.mainTextZone.text('pending...');
+                    content.dropZone.mainTextZone.text('Hashing...');
                     content.dropZone.inputContainer.progressBarContainer.show();
                     setTooltip('');
                     break;
