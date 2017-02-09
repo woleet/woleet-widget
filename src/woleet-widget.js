@@ -133,9 +133,10 @@
             return [day, month + 1, year].join('/') + ' ' + [hour, minutes].join(':');
         }
 
-        function setInputFile(e) {
-            let file = e.target.files[0];
+        function setInputFile() {
+            let file = this.files[0];
             if (!file) return;
+            this.value = null; // Reset input
             if (state == 'done') setVue();
             if (state == 'needReceipt') {
                 setVue('pending');

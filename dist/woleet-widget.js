@@ -154,9 +154,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return [day, month + 1, year].join('/') + ' ' + [hour, minutes].join(':');
         }
 
-        function setInputFile(e) {
-            var file = e.target.files[0];
+        function setInputFile() {
+            var file = this.files[0];
             if (!file) return;
+            this.value = null; // Reset input
             if (state == 'done') setVue();
             if (state == 'needReceipt') {
                 setVue('pending');
