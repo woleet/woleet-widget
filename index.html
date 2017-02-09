@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>DAB proof verifier</title>
+
     <meta charset="UTF-8">
-    <title>Woleet Verification widget</title>
+    <meta name="description" content="Data Anchoring on Bitcoin proof verifier"/>
+    <meta name="keywords" content="data, anchoring, Bitcoin, proof, verifier, timestamp, integrity"/>
+    <meta name="author" content="Woleet SAS"/>
+
     <script src="bower_components/woleet-weblibs/dist/woleet-weblibs.js"></script>
     <link href="dist/style.css" rel="stylesheet">
     <script src="dist/woleet-widget.js"></script>
 </head>
 <body>
 
-<h1>Woleet verification widget</h1>
+<h1>Data Anchoring on Bitcoin proof verifier</h1>
 
-<p>Use this widget to verify the timestamp and integrity of files anchored on the Bitcoin blockchain using the Woleet
-    platform (or any Chainpoint 1.x compatible anchoring tool).</p>
-<p>If the file was anchored publicly, then you don't need to provide the anchoring receipt (it is retieved live from
-    the woleet platform). Otherwise, you'll be asked to provide the Chainpoint 1.x anchoring receipt.</p>
+<p>Use this tool to verify the timestamp and integrity of files anchored on the Bitcoin blockchain using any Chainpoint
+    1.x compatible tool.</p>
+<p>Note: if the file was anchored publicly using the <a href="https://ui.woleet.io">Woleet platform</a>, then you don't
+    need to provide the anchoring receipt (as it is retieved live from the Woleet platform).
+    Otherwise, you'll be asked to provide the Chainpoint 1.x anchoring receipt.</p>
+
 <br/><br/>
 
 <div style="text-align: center;">
     <div style="display: inline-block;" class="woleet-widget"></div>
+</div>
+
+<br/><br/>
+
+<div style="text-align: right;">This tool is gracefully provided to <a href="https://github.com/woleet/woleet-widget">
+    the community</a> by <a href="https://woleet.io">Woleet</a>
 </div>
 
 </body>
