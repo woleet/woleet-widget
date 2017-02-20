@@ -1,12 +1,31 @@
 (function (root) {
+    /**
+     * @param [hash]
+     * @param [params]
+     * @constructor
+     */
     function Widget(hash, params) {
 
-        if (hash && typeof hash == 'object') {
+        // Parsing parameters
+        if (!params && hash && typeof hash == 'object') {
             params = hash;
             hash = null;
         }
         else if (hash && typeof hash != 'string') throw new Error('Invalid parameter type');
+        //
 
+        // state relative variables
+        const state = {
+            state: 'initial',
+            hash: null,
+            retry: false
+        };
+        //
+
+        /**
+         * @description "virtual" DOM element Object
+         * @param domElement
+         */
         const $ = function (domElement) {
             let _target = domElement;
             this.target = () => _target;
@@ -70,12 +89,19 @@
             }
         };
 
-        const $touch = ((e = 'div', c) => {
+        /**
+         * @description "virtual" DOM element factory
+         * @param {String} [e] element type
+         * @param {String|Array<String>} [c] class/classes
+         * @returns $
+         */
+        const $touch = (e = 'div', c) => {
             let d = new $(document.createElement(e));
             if (c) d.addClass(c);
             return d;
-        });
+        };
 
+        // Building the "virtual" widget
         const widget = $touch('div', 'widget');
         const head = widget.head = $touch('div', 'head');
         head.logo = $touch('div', 'woleet-logo');
@@ -103,9 +129,6 @@
         if (hash) setInputFile.call({files: [hash]});
 
         //CTRL
-
-        let state = 'initial';
-        let _file;
 
         function init() {
             content.dropZone.mainTextZone.text('Drop the file to verify');
@@ -135,37 +158,59 @@
 
         function setInputFile() {
             let file = this.files[0];
-            //let file = e.target.files[0];
             if (!file) return;
+            //noinspection JSUnusedGlobalSymbols
             this.value = null; // Reset input
-            if (state == 'done') setVue();
-            if (state == 'needReceipt') {
+            if (state.state == 'done') setVue();
+            // if we already checked a hash|file but need a receipt to verify it
+            if (state.state == 'needReceipt') {
                 setVue('pending');
-                parseReceiptFile(file).then(function (receipt) {
-                    woleet.verify.DAB(_file, receipt, (e) => {
-                        progressBar.style({width: e.progress * 100 + '%'});
-                    }).then(function (res) {
+                parseReceiptFile(file)
+                    .then((receipt) =>
+                        woleet.verify.DAB(state.hash, receipt, (e) => {
+                            progressBar.style({width: e.progress * 100 + '%'})
+                        }))
+                    .then((res) => {
                         setVue('woleet-ok', formatDate(res.confirmedOn));
-                        state = 'done';
-                    }, function (err) {
-                        setVue('error', err);
+                        state.state = 'done';
                     })
-                }, function (err) {
-                    setVue('error', err);
-                });
+                    .catch((err) => {
+                        // as we use cross-domain, it is difficult ot know where the error come from,
+                        // so we try once with an other provider
+                        if (err.message == 'error_while_getting_transaction' && state.retry == false) {
+                            state.retry = true;
+                            woleet.transaction.setDefaultProvider("blockcypher.com");
+                            setInputFile.call({files: [file]}); // self-calling, binding with current receipt file
+                        }
+                        else {
+                            console.trace(err);
+                            setVue('error', err);
+                        }
+                    })
             }
+            // we just entered a new hash|file to verify
             else {
-                _file = file;
+                state.hash = file;
                 setVue('pending');
                 woleet.verify.WoleetDAB(file, (e) => {
                     progressBar.style({width: e.progress * 100 + '%'});
-                }).then(function (res) {
-                    state = 'done';
-                    if (res.length) setVue('woleet-ok', formatDate(res[0].confirmedOn));
-                    else setVue('need-receipt', 'Drop its receipt');
-                }, function (err) {
-                    console.error(err);
-                    setVue('error', err);
+                }).then((res) => {
+                    if (res.length) {
+                        state.state = 'done';
+                        setVue('woleet-ok', formatDate(res[0].confirmedOn));
+                    }
+                    else throw new Error('need-receipt');
+                }).catch((err) => {
+                    // as we use cross-domain, it is difficult to know where the error come from,
+                    // so we guess that the woleet api isn't available and set state to need-receipt
+                    // if the error came from network
+                    if (err.hasOwnProperty('code') || err.message == 'need-receipt') {
+                        state.state = 'needReceipt';
+                        setVue('need-receipt', 'Drop its receipt');
+                    }
+                    else {
+                        setVue('error', err);
+                    }
                 })
             }
         }
@@ -216,9 +261,21 @@
                     break;
                 default:
                     info.text(vue);
-                    tip.text('Nothing to say');
+                    tip.text('unexpected case');
                     break;
             }
+        }
+
+        // same role as setVue, but error-specific
+        function parseError(error) {
+            console.error(error.message);
+            let message = error.message || "Something bad happened";
+            content.info.removeClass('reduced').addClass('expanded').show();
+            content.dropZone.inputContainer.progressBarContainer.hide();
+            content.icon.addClass('error').show();
+            content.dropZone.removeClass('expanded').hide();
+            head.reset.show();
+            setTooltip(message);
         }
 
         function setVue(vue, message) {
@@ -244,17 +301,10 @@
                     content.dropZone.inputContainer.progressBarContainer.hide();
                     head.reset.show();
                     setTooltip('need-receipt');
-                    state = 'needReceipt';
                     break;
                 case 'receipt-ko':
                 case 'error':
-                    console.error(message);
-                    content.info.removeClass('reduced').addClass('expanded').show();
-                    content.dropZone.inputContainer.progressBarContainer.hide();
-                    content.icon.addClass('error').show();
-                    content.dropZone.removeClass('expanded').hide();
-                    head.reset.show();
-                    setTooltip(message.message);
+                    parseError(message);
                     break;
                 case 'pending':
                     content.info.hide();
@@ -275,6 +325,7 @@
                 let reader = new FileReader();
                 reader.onloadend = function (e) {
                     try {
+                        //noinspection JSUnresolvedVariable
                         resolve(JSON.parse(e.target.result));
                     } catch (err) {
                         reject(new Error('unable_to_parse_json'));
@@ -286,8 +337,9 @@
 
         function reset() {
             setVue('init');
-            _file = null;
-            state = 'initial'
+            state.retry = false;
+            state.hash = null;
+            state.state = 'initial'
         }
 
         return widget.toDom()
@@ -298,7 +350,7 @@
         for (let i = 0; i < widgets.length; i++) {
             let e = widgets[i];
             let hash = e.getAttribute("data-hash");
-            e.appendChild(Widget(hash));
+            e.appendChild(new Widget(hash));
         }
     });
 
