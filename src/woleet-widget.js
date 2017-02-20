@@ -99,7 +99,8 @@
 
         init();
 
-        if (hash) setInputFile({target: {files: [hash]}});
+        //Calling setInputFile with {files: ...} as this
+        if (hash) setInputFile.call({files: [hash]});
 
         //CTRL
 
@@ -134,6 +135,7 @@
 
         function setInputFile() {
             let file = this.files[0];
+            //let file = e.target.files[0];
             if (!file) return;
             this.value = null; // Reset input
             if (state == 'done') setVue();

@@ -117,7 +117,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         init();
 
-        if (hash) setInputFile({ target: { files: [hash] } });
+        //Calling setInputFile with {files: ...} as this
+        if (hash) setInputFile.call({ files: [hash] });
 
         //CTRL
 
@@ -156,6 +157,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function setInputFile() {
             var file = this.files[0];
+            //let file = e.target.files[0];
             if (!file) return;
             this.value = null; // Reset input
             if (state == 'done') setVue();
