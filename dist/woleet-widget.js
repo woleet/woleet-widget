@@ -20,8 +20,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // state relative variables
         var state = {
             state: 'initial',
-            hash: null,
-            retry: false
+            hash: null
         };
         //
 
@@ -195,16 +194,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     setVue('woleet-ok', formatDate(res.confirmedOn));
                     state.state = 'done';
                 }).catch(function (err) {
-                    // as we use cross-domain, it is difficult ot know where the error come from,
-                    // so we try once with an other provider
-                    if (err.message == 'error_while_getting_transaction' && state.retry == false) {
-                        state.retry = true;
-                        woleet.transaction.setDefaultProvider("blockcypher.com");
-                        setInputFile.call({ files: [file] }); // self-calling, binding with current receipt file
-                    } else {
-                        console.trace(err);
-                        setVue('error', err);
-                    }
+                    setVue('error', err);
                 });
             }
             // we just entered a new hash|file to verify
@@ -354,7 +344,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function reset() {
             setVue('init');
-            state.retry = false;
             state.hash = null;
             state.state = 'initial';
         }
