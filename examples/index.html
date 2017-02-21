@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Woleet widget examples</title>
 
-    <script src="../bower_components/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
+    <script src="../bower_components/woleet-weblibs/dist/woleet-weblibs.js"></script>
 
     <!-- Woleet widget styles -->
     <link href="../dist/style.css" rel="stylesheet">
@@ -22,7 +22,12 @@
 <div class="woleet-widget"></div>
 
 <h3>Widget automatically verifying some data using a pre-computed hash</h3>
-<div class="woleet-widget" data-hash="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"></div>
+<div class="woleet-widget" data-hash="0bf8e69866ff5db9efc108ea87953081ba627fb524a2c457dfb6c1b7df9430f9" data--name="Amazon.pdf"></div>
+
+<h3>Programmatically called Widget verifying some data using a pre-computed hash</h3>
+<script type="application/javascript">
+    window.document.body.appendChild(new Widget('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+</script>
 
 </body>
 </html>
