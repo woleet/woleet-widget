@@ -1,25 +1,20 @@
 (function (root) {
+
     /**
      * @param [hash]
-     * @param [params]
      * @constructor
      */
-    function Widget(hash, params) {
+    function Widget(hash) {
 
-        // Parsing parameters
-        if (!params && hash && typeof hash == 'object') {
-            params = hash;
-            hash = null;
-        }
-        else if (hash && typeof hash != 'string') throw new Error('Invalid parameter type');
-        //
+        // Check parameter
+        if (hash && typeof hash != 'string')
+            throw new Error('Invalid parameter type');
 
-        // state relative variables
+        // Init state
         const state = {
             state: 'initial',
             hash: null
         };
-        //
 
         /**
          * @description "virtual" DOM element Object
@@ -100,7 +95,7 @@
             return d;
         };
 
-        // Building the "virtual" widget
+        // Build the "virtual" widget
         const widget = $touch('div', 'widget');
         const head = widget.head = $touch('div', 'head');
         head.logo = $touch('div', 'woleet-logo');
@@ -124,10 +119,8 @@
 
         init();
 
-        //Calling setInputFile with {files: ...} as this
+        // Simulate a drop if hash is provided
         if (hash) setInputFile.call({files: [hash]});
-
-        //CTRL
 
         function init() {
             content.dropZone.mainTextZone.text('Drop the file to verify');
@@ -158,10 +151,15 @@
         function setInputFile() {
             let file = this.files[0];
             if (!file) return;
+
+            // Reset input
             //noinspection JSUnusedGlobalSymbols
-            this.value = null; // Reset input
+            this.value = null;
+
+            // Set default vue
             if (state.state == 'done') setVue();
-            // if we already checked a hash|file but need a receipt to verify it
+
+            // We need a receipt to verify the hash|file
             if (state.state == 'needReceipt') {
                 setVue('pending');
                 parseReceiptFile(file)
@@ -177,7 +175,8 @@
                         setVue('error', err);
                     })
             }
-            // we just entered a new hash|file to verify
+
+            // We just entered a new hash|file to verify
             else {
                 state.hash = file;
                 setVue('pending');
@@ -190,8 +189,8 @@
                     }
                     else throw new Error('need-receipt');
                 }).catch((err) => {
-                    // as we use cross-domain, it is difficult to know where the error come from,
-                    // so we guess that the woleet api isn't available and set state to need-receipt
+                    // As we use cross-domain, it is difficult to know where the error come from,
+                    // so we guess that the Woleet API isn't available and set state to need-receipt
                     // if the error came from network
                     if (err.hasOwnProperty('code') || err.message == 'need-receipt') {
                         state.state = 'needReceipt';
@@ -255,7 +254,7 @@
             }
         }
 
-        // same role as setVue, but error-specific
+        // Same role as setVue, but error-specific
         function parseError(error) {
             console.error(error.message);
             let message = error.message || "Something bad happened";
@@ -343,4 +342,5 @@
     });
 
     root.Widget = Widget;
+
 }(window));
