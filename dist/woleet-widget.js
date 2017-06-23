@@ -9,7 +9,7 @@
     function Widget(hash) {
 
         // Check parameter
-        if (hash && typeof hash != 'string') throw new Error('Invalid parameter type');
+        if (hash && typeof hash !== 'string') throw new Error('Invalid parameter type');
 
         // Init state
         var state = {
@@ -18,89 +18,106 @@
         };
 
         /**
-         * @description "virtual" DOM element Object
-         * @param domElement
+         * @typedef {{
+         *      target:function(),
+         *      addClass: function(string[]|string):$,
+         *      removeClass: function(string[]|string):$,
+         *      show: function():$,
+         *      hide: function():$,
+         *      text: function(text: string, add?: boolean):$,
+         *      style: function(props: object),
+         *      attr: function(attr: string, val: *),
+         *      on: function(type: string, listener:function, capture: boolean),
+         *      toDom: function()
+         *      }} $
          */
-        var $ = function $(domElement) {
-            var _this = this;
 
-            var _target = domElement;
-            this.target = function () {
-                return _target;
+        /**
+         * @description "virtual" DOM element Object
+         * @param {Element|string} element
+         * @param {string|string[]} [classes]
+         * @private
+         */
+        var $ = function $(element, classes) {
+
+            if (element instanceof Element) {} else if (typeof element === 'string') {
+                var _element = document.createElement(_element);
+                if (classes) _element.addClass(classes);
+            } else {
+                throw new TypeError();
+            }
+
+            var target = element;
+            /**
+             * @type {$}
+             */
+            var self = this;
+            var rts = function rts() {
+                return self;
+            };
+            var def = function def(name, value) {
+                return Object.defineProperty(self, name, { enumerable: false, value: value });
             };
 
-            this.removeClass = function (e) {
-                Array.isArray(e) ? e.forEach(function (e) {
-                    return _target.classList.remove(e);
-                }) : _target.classList.remove(e);
-                return _this;
-            };
-
-            this.addClass = function (e) {
-                Array.isArray(e) ? e.forEach(function (e) {
-                    return _target.classList.add(e);
-                }) : _target.classList.add(e);
-                return _this;
-            };
-
-            this.text = function (text, add) {
-                add ? _target.innerText += text : _target.innerText = text;
-                return _this;
-            };
-
-            this.show = function () {
-                return _this.removeClass('hidden');
-            };
-
-            this.hide = function () {
-                return _this.addClass('hidden');
-            };
-
-            this.style = function (props) {
+            def('target', function () {
+                return target;
+            });
+            def('removeClass', function (e) {
+                return rts(Array.isArray(e) ? e.forEach(function (e) {
+                    return target.classList.remove(e);
+                }) : target.classList.remove(e));
+            });
+            def('addClass', function (e) {
+                return rts(Array.isArray(e) ? e.forEach(function (e) {
+                    return target.classList.add(e);
+                }) : target.classList.add(e));
+            });
+            def('text', function (text, add) {
+                return rts(add ? target.innerText += text : target.innerText = text);
+            });
+            def('show', function () {
+                return self.removeClass('hidden');
+            });
+            def('hide', function () {
+                return self.addClass('hidden');
+            });
+            def('style', function (props) {
                 if (Array.isArray(props)) {
                     return props.map(function (p) {
-                        return _target.style[p];
+                        return target.style[p];
                     });
-                } else if (typeof props == 'string') return _target.style[props];else {
-                    for (var propName in props) {
+                } else if (typeof props === 'string') return target.style[props];else {
+                    for (var prop in props) {
                         //noinspection JSUnfilteredForInLoop
-                        _target.style[propName] = props[propName];
+                        target.style[prop] = props[prop];
                     }
                 }
-            };
-
-            this.attr = function (attr, val) {
-                val ? _target.setAttribute(attr, val) : _target.removeAttribute(attr);
-                return _this;
-            };
-
-            this.on = function (type, listener, capture) {
-                _target.addEventListener(type, listener, capture);
-                return _this;
-            };
-
-            this.toDom = function () {
-                var iniProps = ['target', 'text', 'show', 'hide', 'toDom', 'addClass', 'removeClass', 'attr', 'on', 'style'];
-                var root = _this.target();
-                for (var e in _this) {
-                    if (!_this.hasOwnProperty(e)) continue;
-                    if (iniProps.indexOf(e) != -1) continue;
+            });
+            def('attr', function (attr, val) {
+                return rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr));
+            });
+            def('on', function (type, listener, capture) {
+                return rts(target.addEventListener(type, listener, capture));
+            });
+            def('toDom', function () {
+                var root = self.target();
+                for (var e in self) {
+                    if (!self.hasOwnProperty(e)) continue;
                     if (!e instanceof $) continue;
                     try {
-                        root.appendChild(_this[e].toDom());
+                        root.appendChild(self[e].toDom());
                     } catch (err) {
                         console.log(e, err);
                     }
                 }
                 return root;
-            };
+            });
         };
 
         /**
          * @description "virtual" DOM element factory
          * @param {String} [e] element type
          * @param {String|Array<String>} [c] class/classes
-         * @returns $
          */
         var $touch = function $touch() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'div';
@@ -115,23 +132,27 @@
         var widget = $touch('div', 'widget');
         var head = widget.head = $touch('div', 'head');
         head.logo = $touch('div', 'woleet-logo');
-        head.reset = $touch('div', ['reset-button', 'clickable']).on('click', reset);
-        widget.body = $touch();
-        var content = widget.body.content = $touch();
-        content.icon = $touch('div', 'infoStatus');
-        content.info = $touch('div', 'infoBox');
-        content.info.message = $touch('div', 'messageBox');
-        content.info.message.buttonBox = $touch('div', 'buttonBox');
-        content.info.message.buttonBox.button = $touch('div', ['info', 'tooltip', 'clickable']);
-        content.info.message.buttonBox.button.tooltip = $touch('span', ['tooltiptext']);
-        content.info.message.textZone = $touch('div', 'text');
-        content.dropZone = $touch('div', 'dropZoneContainer');
-        content.dropZone.mainTextZone = $touch('div', 'text');
-        content.dropZone.subTextZone = $touch('div', ['text', 'little']);
-        content.dropZone.inputContainer = $touch('div', 'subContainer');
-        content.dropZone.inputContainer.progressBarContainer = $touch('div').hide();
-        var progressBar = content.dropZone.inputContainer.progressBarContainer.progressBar = $touch('div', 'progressBar');
-        content.dropZone.inputContainer.input = $touch('input', ['dropZone', 'clickable']).attr('type', 'file').on('change', setInputFile);
+        head.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
+        head.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
+        var body = widget.body = $touch('div', 'body');
+
+        var hashZone = body.hashZone = $touch('div', 'hashZone');
+        hashZone.hashProgessContainer = $touch('div', 'progressBarContainer');
+        hashZone.percentage = $touch('span').text('Hashing... 0%');
+        var progressBar = hashZone.hashProgessContainer.progressBar = $touch('div', 'progressBar');
+
+        var infoZone = body.infoZone = $touch('div', 'infoZone');
+        infoZone.icon = $touch('div', 'infoStatus');
+        infoZone.mainTextZone = $touch('div', 'text');
+        infoZone.subTextZone = $touch('div', ['text', 'small']);
+        infoZone.signTextZone = $touch('div', ['text', 'x-small']);
+        infoZone.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
+
+        var dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
+        dropZone.inputContainer = $touch('div');
+        dropZone.inputContainer.mainTextZone = $touch('div', 'text');
+        dropZone.inputContainer.subTextZone = $touch('div', ['text', 'small']);
+        dropZone.inputContainer.input = $touch('input', ['dropZone', 'clickable']).attr('type', 'file').on('change', setInputFile);
 
         init();
 
@@ -139,14 +160,23 @@
         if (hash) setInputFile.call({ files: [hash] });
 
         function init() {
-            content.dropZone.mainTextZone.text('Drop the file to verify');
-            content.dropZone.subTextZone.text('');
-            content.info.message.buttonBox.button.tooltip.text('');
-            content.dropZone.addClass('expanded').show();
-            content.info.removeClass(['reduced', 'expanded']).hide();
-            content.icon.removeClass(['validated', 'error']).hide();
-            content.dropZone.inputContainer.progressBarContainer.hide();
+            resetText();
+            dropZone.inputContainer.mainTextZone.text('Drop the file to verify');
+            infoZone.removeClass(['validated', 'error']);
+            infoZone.hide();
+            dropZone.show();
+            hashZone.hide();
             head.reset.hide();
+            head.cancel.hide();
+        }
+
+        function resetText() {
+            dropZone.inputContainer.mainTextZone.text('');
+            dropZone.inputContainer.subTextZone.text('');
+            infoZone.mainTextZone.text('');
+            infoZone.subTextZone.text('');
+            infoZone.signTextZone.text('');
+            infoZone.warnTextZone.text('');
         }
 
         /**
@@ -168,6 +198,8 @@
             return [day, month + 1, year].join('/') + ' ' + [hour, minutes].join(':');
         }
 
+        var hasher = new woleet.file.Hasher();
+
         function setInputFile() {
             var file = this.files[0];
             if (!file) return;
@@ -177,17 +209,24 @@
             this.value = null;
 
             // Set default vue
-            if (state.state == 'done') setVue();
+            if (state.state === 'done') setVue('init');
+
+            var setProgress = function setProgress(e) {
+                var p = e.progress * 100;
+                if (Number.isNaN(p)) p = 0;
+                p = p.toFixed(0);
+                progressBar.style({ width: p + '%' });
+                hashZone.percentage.text('Hashing... ' + p + '%');
+            };
 
             // We need a receipt to verify the hash|file
-            if (state.state == 'needReceipt') {
+            if (state.state === 'needReceipt') {
                 setVue('pending');
                 parseReceiptFile(file).then(function (receipt) {
-                    return woleet.verify.DAB(state.hash, receipt, function (e) {
-                        progressBar.style({ width: e.progress * 100 + '%' });
-                    });
+                    return woleet.verify.DAB(state.hash, receipt, setProgress);
                 }).then(function (res) {
-                    setVue('woleet-ok', formatDate(res.confirmedOn));
+                    if (res.code !== 'verified') throw new Error(res.code);
+                    setVue('woleet-ok', res);
                     state.state = 'done';
                 }).catch(function (err) {
                     setVue('error', err);
@@ -196,126 +235,155 @@
 
             // We just entered a new hash|file to verify
             else {
-                    state.hash = file;
+                    var woleetDAB = function woleetDAB(hash) {
+                        woleet.verify.WoleetDAB(hash, setProgress).then(function (result) {
+                            if (result.length) {
+                                state.state = 'done';
+                                var res = result[0];
+                                if (res.code !== 'verified') throw new Error(res.code);
+                                setVue('woleet-ok', res);
+                            } else throw new Error('need-receipt');
+                        }).catch(function (err) {
+                            // As we use cross-domain, it is difficult to know where the error come from,
+                            // so we guess that the Woleet API isn't available and set state to need-receipt
+                            // if the error came from network
+                            if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
+                                state.state = 'needReceipt';
+                                setVue('need-receipt');
+                            } else {
+                                setVue('error', err);
+                            }
+                        });
+                    };
+
                     setVue('pending');
-                    woleet.verify.WoleetDAB(file, function (e) {
-                        progressBar.style({ width: e.progress * 100 + '%' });
-                    }).then(function (res) {
-                        if (res.length) {
-                            state.state = 'done';
-                            setVue('woleet-ok', formatDate(res[0].confirmedOn));
-                        } else throw new Error('need-receipt');
-                    }).catch(function (err) {
-                        // As we use cross-domain, it is difficult to know where the error come from,
-                        // so we guess that the Woleet API isn't available and set state to need-receipt
-                        // if the error came from network
-                        if (err.hasOwnProperty('code') || err.message == 'need-receipt') {
-                            state.state = 'needReceipt';
-                            setVue('need-receipt', 'Drop its receipt');
-                        } else {
-                            setVue('error', err);
-                        }
-                    });
+
+                    if (typeof file === 'string') {
+                        state.hash = file;
+                        woleetDAB(state.hash);
+                    } else {
+                        hasher.start(file);
+                        hasher.on('progress', setProgress);
+                        hasher.on('result', function (r) {
+                            state.hash = r.result;
+                            woleetDAB(state.hash);
+                            setProgress({ progress: 0 });
+                        });
+                    }
                 }
         }
 
-        function setTooltip(vue) {
-            var tip = content.info.message.buttonBox.button.tooltip;
-            var info = content.info.message.textZone;
-            switch (vue) {
+        function getErrorMessage(err) {
+            if (err instanceof Error) {
+                err = err.message;
+            }
+            var detail = {};
+            switch (err) {
                 case 'need-receipt':
-                    info.text('File unknown to Woleet');
-                    tip.text('The receipt cannot be retreived from Woleet: you must provide it to verify this file');
+                    detail.main = 'File unknown to Woleet';
+                    detail.sub = 'The receipt cannot be retreived from Woleet: you must provide it to verify this file';
                     break;
                 case 'target_hash_mismatch':
-                    info.text('The provided receipt is not meant for this file');
-                    tip.text('The receipt\'s target_hash attribute doesn\'t match the file hash');
+                    detail.main = 'The provided receipt is not meant for this file';
+                    detail.sub = 'The receipt\'s target_hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
-                    info.text('The provided receipt cannot be parsed');
-                    tip.text('The file you provided doesn\'t look like a receipt');
+                    detail.main = 'The provided receipt cannot be parsed';
+                    detail.sub = 'The file you provided doesn\'t look like a receipt';
                     break;
                 case 'merkle_root_mismatch':
-                    info.text('The provided receipt seems corrupted');
-                    tip.text('The receipt\'s merkle_root attribute does not match the proof result');
+                    detail.main = 'The provided receipt seems corrupted';
+                    detail.sub = 'The receipt\'s merkle_root attribute does not match the proof result';
                     break;
                 case 'non_sha256_target_proof_element':
-                    info.text('The provided receipt seems corrupted');
-                    tip.text('An attribute in the proof (parent or left or right) in not a SHA256 hash');
+                    detail.main = 'The provided receipt seems corrupted';
+                    detail.sub = 'An attribute in the proof (parent or left or right) in not a SHA256 hash';
                     break;
                 case 'invalid_parent_in_proof_element':
-                    info.text('The provided receipt seems corrupted');
-                    tip.text('A parent in the proof does not match SHA256(left+right).');
+                    detail.main = 'The provided receipt seems corrupted';
+                    detail.sub = 'A parent in the proof does not match SHA256(left+right).';
                     break;
                 case 'invalid_receipt_format':
-                    info.text('The provided receipt seems corrupted');
-                    tip.text('The proof miss an attribute (parent or left or right).');
+                    detail.main = 'The provided receipt seems corrupted';
+                    detail.sub = 'The proof miss an attribute (parent or left or right).';
                     break;
                 case 'invalid_target_proof':
-                    info.text('The provided receipt seems corrupted');
-                    tip.text('The receipt does not conform to the Chainpoint 1.x format');
+                    detail.main = 'The provided receipt seems corrupted';
+                    detail.sub = 'The receipt does not conform to the Chainpoint 1.x format';
                     break;
                 case 'tx_not_found':
-                    info.text('Transaction not found');
-                    tip.text('The transaction targeted by the receipt cannot be found');
+                    detail.main = 'Transaction not found';
+                    detail.sub = 'The transaction targeted by the receipt cannot be found';
+                    break;
+                case 'invalid_receipt_signature':
+                    detail.main = 'Invalid receipt signature';
+                    detail.sub = 'The provided receipt is packed with a signature field witch is invalid';
                     break;
                 case 'error_while_getting_transaction':
-                    info.text('Cannot get transaction');
-                    tip.text('There was an error while getting the transaction (try again)');
+                    detail.main = 'Cannot get transaction';
+                    detail.sub = 'There was an error while getting the transaction (try again)';
                     break;
                 default:
-                    info.text(vue);
-                    tip.text('unexpected case');
+                    console.trace('unexpected case', err);
+                    detail.main = err;
+                    detail.sub = 'unexpected case';
                     break;
             }
-        }
-
-        // Same role as setVue, but error-specific
-        function parseError(error) {
-            console.error(error.message);
-            var message = error.message || "Something bad happened";
-            content.info.removeClass('reduced').addClass('expanded').show();
-            content.dropZone.inputContainer.progressBarContainer.hide();
-            content.icon.addClass('error').show();
-            content.dropZone.removeClass('expanded').hide();
-            head.reset.show();
-            setTooltip(message);
+            return detail;
         }
 
         function setVue(vue, message) {
             switch (vue) {
                 case 'woleet-ok':
-                case 'receipt-ok':
-                    content.icon.show();
-                    var date = message.split(' ');
-                    content.dropZone.mainTextZone.text(date[0]);
-                    content.dropZone.subTextZone.text(date[1]);
-                    content.dropZone.removeClass('expanded');
-                    content.icon.addClass('validated');
-                    content.info.removeClass('reduced').hide();
-                    content.dropZone.inputContainer.progressBarContainer.hide();
-                    content.dropZone.attr('disabled', true);
-                    setTooltip('');
+                    resetText();
+                    infoZone.show();
+                    dropZone.hide();
+                    hashZone.hide();
+                    head.cancel.hide();
+                    var s = message.receipt.signature;
+                    var i = message.identityVerificationStatus;
+                    var pubKey = s ? s.pubKey : null;
+                    var signee = s && s.identityURL && i && i.code === 'verified' ? s.identityURL : pubKey;
+                    var date = formatDate(message.timestamp).split(' ');
+                    var timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
+                    infoZone.mainTextZone.text((pubKey ? 'Signed' : 'Timestamped') + ' on ' + date[0]);
+                    infoZone.subTextZone.text('at ' + date[1] + ' ' + timeZone);
+                    infoZone.signTextZone.text(pubKey ? 'by ' + signee : '');
+                    if (i && i.code && i.code !== 'verified') {
+                        infoZone.warnTextZone.text('Cannot validate identity (' + i.code + ')');
+                    }
+                    infoZone.addClass('validated');
+                    dropZone.attr('disabled', true);
+                    head.reset.show();
                     break;
                 case 'need-receipt':
-                    content.dropZone.mainTextZone.text(message);
-                    content.dropZone.removeClass('expanded');
-                    content.info.message.textZone.text('need receipt');
-                    content.info.addClass('reduced').show();
-                    content.dropZone.inputContainer.progressBarContainer.hide();
+                    resetText();
+                    infoZone.hide();
+                    dropZone.show();
+                    hashZone.hide();
+                    head.cancel.hide();
+                    dropZone.inputContainer.mainTextZone.text('File unknown to Woleet');
+                    dropZone.inputContainer.subTextZone.text('Drop it\'s receipt');
                     head.reset.show();
-                    setTooltip('need-receipt');
                     break;
-                case 'receipt-ko':
                 case 'error':
-                    parseError(message);
+                    resetText();
+                    infoZone.show();
+                    dropZone.hide();
+                    hashZone.hide();
+                    head.cancel.hide();
+                    var detail = getErrorMessage(message);
+                    infoZone.mainTextZone.text(detail.main);
+                    infoZone.subTextZone.text(detail.sub);
+                    infoZone.addClass('error');
+                    head.reset.show();
                     break;
                 case 'pending':
-                    content.info.hide();
-                    content.icon.hide();
-                    content.dropZone.mainTextZone.text('Hashing...');
-                    content.dropZone.inputContainer.progressBarContainer.show();
-                    setTooltip('');
+                    resetText();
+                    head.cancel.show();
+                    infoZone.hide();
+                    dropZone.hide();
+                    hashZone.show();
                     break;
                 case 'init':
                 default:
@@ -343,6 +411,11 @@
             setVue('init');
             state.hash = null;
             state.state = 'initial';
+        }
+
+        function cancelHash() {
+            hasher.cancel();
+            reset();
         }
 
         return widget.toDom();

@@ -1,6 +1,7 @@
 // Color variables (appears count calculates by raw css)
 @color0: #4c668a; // Appears 3 times
 @color1: #ffffff; // Appears 2 times
+@color2: #f05228;
 
 // Width variables (appears count calculates by raw css)
 @width3: 180px; // Appears 2 times
@@ -11,195 +12,195 @@
 @invalid_icon: invalid.svg;
 @refresh_icon: refresh.svg;
 
+@progress_background: 45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent;
+@progress_background_size: 40px 40px;
+@progress_transition: width .6s ease;
+@progress_animation: progress-bar-stripes 2s linear infinite;
+
+@cancel_button_inset_rule: inset 0 0 0 2px @color2;
+
 .woleet-widget {
 
   .widget {
     background-color: @color0;
     border-radius: 20px;
     border: 3px solid @color0;
-    height: 130px;
+    //height: 130px;
     width: 330px;
     > div {
       background: #f6f6f6;
       border-radius: 0 0 17px 17px;
-      height: 85px;
       padding: 5px 20px;
+    }
 
-      &.head {
-        background: @color0;
-        border-radius: 17px;
-        height: 25px;
-        line-height: 25px;
+    > .head {
+      background: @color0;
+      //border-radius: 17px;
+      height: 25px;
+      line-height: 25px;
+      //display: inline-flex;
+      border-radius: 17px;
+
+      .woleet-logo {
+        background-size: 100%;
+        background: data-uri(@logo_icon) no-repeat;
+        margin-top: 1px;
+        height: 100%;
+        width: 85px;
       }
+
+      .mini-button {
+        background-size: 100% !important;
+        float: right;
+        height: 24px;
+        width: 24px;
+        margin-left: -24px;
+        /* margin-left: -24px; */
+        margin-top: -26px;
+      }
+
+      .mini-button.reset {
+        background: data-uri(@refresh_icon) no-repeat;
+      }
+
+      .mini-button.cancel {
+        background: data-uri(@invalid_icon) no-repeat, #fff;
+        border-radius: 50%;
+        -webkit-box-shadow: @cancel_button_inset_rule;
+        -moz-box-shadow: @cancel_button_inset_rule;
+        box-shadow: @cancel_button_inset_rule;
+      }
+
+    }
+
+    > .body {
+      font-family: sans-serif;
+      height: 85px;
 
       > div {
-        display: inline-flex;
-        height: inherit;
+        animation: fly .5s ease;
+        transform-origin: center;
+      }
+
+      .dropZoneContainer {
+        border-radius: 1em;
+        border: 2px dashed;
+        color: #999;
+        height: 49px;
+        overflow: hidden;
+        padding: 1em 0;
+        text-align: center;
+
+        .dropZone {
+          margin-top: -5em;
+          height: inherit;
+          outline: none;
+          padding-top: 10em;
+          width: 100%;
+        }
+      }
+
+      .infoZone {
+        > .text {
+          padding-left: 70px;
+          text-align: initial;
+          margin-left: 15px;
+        }
+      }
+
+      .hashZone {
+
+        span {
+          font-size: small;
+          color: #888;
+        }
+
+        .progressBarContainer {
+          width: 100%;
+          margin: 15px 0 10px 0;
+          height: 1em;
+          border-radius: 5px;
+          background: #e4e4e4;
+
+          .progressBar {
+            height: 1em;
+            width: 0;
+
+            animation: @progress_animation;
+            background: rgba(139, 195, 74, 0.65) linear-gradient(@progress_background);
+            background-size: @progress_background_size;
+            transition: @progress_transition;
+            margin: 15px 0;
+            border-radius: 5px;
+          }
+        }
+      }
+
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .text {
+      font-family: sans-serif;
+      color: #333;
+      padding: 5px 5px 0 5px;
+      &.small {
+        font-size: small;
+      }
+      &.x-small {
+        font-size: xx-small;
+        white-space: nowrap;
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+      }
+      &.warn {
+        font-size: x-small;
+        color: @color2;
       }
     }
-  }
 
-  .hidden {
-    display: none !important;
-  }
-
-  .woleet-logo {
-    background-size: 100%;
-    background: data-uri(@logo_icon) no-repeat;
-    margin-top: 1px;
-    width: 85px;
-  }
-
-  div.messageBox {
-    background: #ffcc55;
-    border-radius: 5px;
-    height: 74px;
-    margin: 19px 20px;
-    text-align: center;
-    width: @width3;
-  }
-
-  div.info {
-    background-size: 100%;
-    background: @color1 data-uri(@info_icon) no-repeat;
-    border-radius: 50%;
-    border: none;
-    height: 20px;
-    margin-top: -15px;
-    width: 20px;
-  }
-
-  div.buttonBox {
-    height: 0;
-    margin-left: 185px;
-    margin-top: -15px;
-  }
-
-  .dropZone {
-    height: inherit;
-    outline: none;
-    padding-top: 99px;
-  }
-
-  button.info {
-    &:focus {
-      outline: none;
+    .infoStatus {
+      display: none;
+      height: 70px;
+      width: 70px;
+      margin: 6px 0;
+      position: absolute;
     }
-  }
 
-  .text {
-    font-family: sans-serif;
-    color: #333333;
-    padding: 5px 5px 0 5px;
-    &.little {
-      font-size: small;
-      padding: 0 5px;
-    }
-  }
-
-  .dropZoneContainer {
-    border-radius: 1em;
-    border: 2px dashed;
-    color: #999999;
-    height: 2.6em;
-    margin: .3em 2em;
-    overflow: hidden;
-    padding: 1em 0;
-    text-align: center;
-    width: 11em;
-    &.expanded {
-      width: 15em;
-    }
-  }
-
-  .subContainer {
-    margin-top: -2.5em;
-  }
-
-  .infoStatus {
-    display: none;
-    height: 70px;
-    margin: 6px 0;
-    width: 70px;
-    &.validated {
+    .validated .infoStatus {
       background-size: 100%;
       background: data-uri(@checked_icon) no-repeat;
       display: block;
     }
-    &.error {
+
+    .error .infoStatus {
       background-size: 100%;
       background: data-uri(@invalid_icon) no-repeat;
       display: block;
     }
-  }
 
-  .infoBox {
-    &.reduced {
-      display: block;
-      > .messageBox {
-        margin: 19px -5px;
-        width: 100px;
-        > .buttonBox {
-          margin-left: 85px;
-        }
+    .clickable {
+      &:hover {
+        cursor: pointer;
       }
     }
-    &.expanded > .messageBox {
-      width: 200px;
-    }
-  }
 
-  .tooltip {
-    border-bottom: 1px dotted black;
-    display: inline-block;
-    position: relative;
-    .tooltiptext {
-      font-family: sans-serif;
-      background-color: rgba(85, 85, 85, 0.65);
-      border-radius: 6px;
-      color: @color1;
-      margin: -34px -50px;
-      padding: 5px 0;
-      position: absolute;
-      text-align: center;
-      visibility: hidden;
-      width: @width3;
-      z-index: 1;
-      &::after {
-        border: 5px solid transparent;
-        content: " ";
-        left: 60px;
-        margin-left: -5px;
-        position: absolute;
-        top: 100%;
+    @keyframes progress-bar-stripes {
+      from {
+        background-position: 40px 0;
+      }
+      to {
+        background-position: 0 0;
       }
     }
-    &:hover {
-      .tooltiptext {
-        visibility: visible;
+
+    @keyframes fly {
+      from {
+        transform: scale(0);
+        opacity: 0;
       }
     }
-  }
 
-  .reset-button {
-    background-size: 100% !important;
-    background: data-uri(@refresh_icon) no-repeat;
-    display: none;
-    float: right;
-    height: 10px;
-    width: 24px;
-  }
-
-  .clickable {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .progressBar {
-    background-color: rgba(139, 195, 74, 0.65);
-    height: 4.6em;
-    margin-top: -1em;
-    width: 0;
   }
 }
