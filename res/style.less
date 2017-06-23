@@ -3,6 +3,10 @@
 @color1: #ffffff; // Appears 2 times
 @color2: #f05228;
 
+@button_color_r: 128;
+@button_color_g: 187;
+@button_color_b: 60;
+
 // Width variables (appears count calculates by raw css)
 @width3: 180px; // Appears 2 times
 
@@ -51,12 +55,36 @@
 
       .mini-button {
         background-size: 100% !important;
-        float: right;
         height: 24px;
         width: 24px;
-        margin-left: -24px;
-        /* margin-left: -24px; */
+        position: absolute;
+        margin: -26px 0 0 280px;
+      }
+
+      .receipt-button {
+        margin-left: 190px;
         margin-top: -26px;
+        color: #fff;
+        white-space: nowrap;
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+        font-size: x-small;
+        background: rgb(@button_color_r, @button_color_g, @button_color_b);
+        border: none;
+        border-radius: 5px;
+        display: block;
+        padding: 5px 10px;
+        box-shadow: 0 2px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 0.75);
+
+        &:active {
+          box-shadow: 0 1px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 1);
+          position: relative;
+          top: 1px;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
       }
 
       .mini-button.reset {

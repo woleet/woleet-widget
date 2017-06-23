@@ -134,6 +134,7 @@
         head.logo = $touch('div', 'woleet-logo');
         head.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
         head.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
+        head.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop receipt');
         var body = widget.body = $touch('div', 'body');
 
         var hashZone = body.hashZone = $touch('div', 'hashZone');
@@ -168,6 +169,7 @@
             hashZone.hide();
             head.reset.hide();
             head.cancel.hide();
+            head.receipt.hide();
         }
 
         function resetText() {
@@ -247,6 +249,7 @@
                             // As we use cross-domain, it is difficult to know where the error come from,
                             // so we guess that the Woleet API isn't available and set state to need-receipt
                             // if the error came from network
+                            console.log(err);
                             if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
                                 state.state = 'needReceipt';
                                 setVue('need-receipt');
@@ -271,6 +274,13 @@
                         });
                     }
                 }
+        }
+
+        function forceReceipt() {
+            state.state = 'needReceipt';
+            setVue('need-receipt');
+            dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
+            dropZone.inputContainer.subTextZone.text('');
         }
 
         function getErrorMessage(err) {
@@ -336,6 +346,7 @@
             switch (vue) {
                 case 'woleet-ok':
                     resetText();
+                    infoZone.removeClass(['error']);
                     infoZone.show();
                     dropZone.hide();
                     hashZone.hide();
@@ -355,6 +366,7 @@
                     infoZone.addClass('validated');
                     dropZone.attr('disabled', true);
                     head.reset.show();
+                    head.receipt.show();
                     break;
                 case 'need-receipt':
                     resetText();
@@ -362,16 +374,19 @@
                     dropZone.show();
                     hashZone.hide();
                     head.cancel.hide();
+                    head.receipt.hide();
                     dropZone.inputContainer.mainTextZone.text('File unknown to Woleet');
                     dropZone.inputContainer.subTextZone.text('Drop it\'s receipt');
                     head.reset.show();
                     break;
                 case 'error':
                     resetText();
+                    infoZone.removeClass(['validated']);
                     infoZone.show();
                     dropZone.hide();
                     hashZone.hide();
                     head.cancel.hide();
+                    if (state.state === 'needReceipt') head.receipt.show();
                     var detail = getErrorMessage(message);
                     infoZone.mainTextZone.text(detail.main);
                     infoZone.subTextZone.text(detail.sub);
@@ -381,6 +396,7 @@
                 case 'pending':
                     resetText();
                     head.cancel.show();
+                    head.receipt.hide();
                     infoZone.hide();
                     dropZone.hide();
                     hashZone.show();

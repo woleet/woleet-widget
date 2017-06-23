@@ -108,6 +108,7 @@
         head.logo = $touch('div', 'woleet-logo');
         head.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
         head.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
+        head.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop receipt');
         const body = widget.body = $touch('div', 'body');
 
         const hashZone = body.hashZone = $touch('div', 'hashZone');
@@ -142,6 +143,7 @@
             hashZone.hide();
             head.reset.hide();
             head.cancel.hide();
+            head.receipt.hide();
         }
 
         function resetText() {
@@ -250,6 +252,13 @@
             }
         }
 
+        function forceReceipt() {
+            state.state = 'needReceipt';
+            setVue('need-receipt');
+            dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
+            dropZone.inputContainer.subTextZone.text('');
+        }
+
         function getErrorMessage(err) {
             if (err instanceof Error) {
                 err = err.message;
@@ -300,9 +309,6 @@
                     detail.main = 'Cannot get transaction';
                     detail.sub = 'There was an error while getting the transaction (try again)';
                     break;
-                case '':
-                    console.trace('undefined');
-                    break;
                 default:
                     console.trace('unexpected case', err);
                     detail.main = err;
@@ -316,11 +322,11 @@
             switch (vue) {
                 case 'woleet-ok':
                     resetText();
+                    infoZone.removeClass(['error']);
                     infoZone.show();
                     dropZone.hide();
                     hashZone.hide();
                     head.cancel.hide();
-                    console.log(message);
                     const s = message.receipt.signature;
                     const i = message.identityVerificationStatus;
                     const pubKey = s ? s.pubKey : null;
@@ -330,12 +336,13 @@
                     infoZone.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
                     infoZone.subTextZone.text('at ' + date[1] + ' ' + timeZone);
                     infoZone.signTextZone.text(pubKey ? `by ${signee}` : '');
-                    if(i && i.code && i.code !== 'verified') {
+                    if (i && i.code && i.code !== 'verified') {
                         infoZone.warnTextZone.text(`Cannot validate identity (${i.code})`)
                     }
                     infoZone.addClass('validated');
                     dropZone.attr('disabled', true);
                     head.reset.show();
+                    head.receipt.show();
                     break;
                 case 'need-receipt':
                     resetText();
@@ -343,16 +350,19 @@
                     dropZone.show();
                     hashZone.hide();
                     head.cancel.hide();
+                    head.receipt.hide();
                     dropZone.inputContainer.mainTextZone.text('File unknown to Woleet');
                     dropZone.inputContainer.subTextZone.text('Drop it\'s receipt');
                     head.reset.show();
                     break;
                 case 'error':
                     resetText();
+                    infoZone.removeClass(['validated']);
                     infoZone.show();
                     dropZone.hide();
                     hashZone.hide();
                     head.cancel.hide();
+                    if(state.state === 'needReceipt') head.receipt.show();
                     let detail = getErrorMessage(message);
                     infoZone.mainTextZone.text(detail.main);
                     infoZone.subTextZone.text(detail.sub);
@@ -362,6 +372,7 @@
                 case 'pending':
                     resetText();
                     head.cancel.show();
+                    head.receipt.hide();
                     infoZone.hide();
                     dropZone.hide();
                     hashZone.show();
