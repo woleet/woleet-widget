@@ -24,6 +24,8 @@
          *      show: function():$,
          *      hide: function():$,
          *      text: function(text: string, add?: boolean):$,
+         *      link: function(link: string):$,
+         *      clear: function():$,
          *      style: function(props: object),
          *      attr: function(attr: string, val: *),
          *      on: function(type: string, listener:function, capture: boolean),
@@ -57,9 +59,12 @@
             const def = (name, value) => Object.defineProperty(self, name, {enumerable: false, value});
 
             def('target', () => target);
+            def('attr', (attr, val) => rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
             def('removeClass', (e) => rts(Array.isArray(e) ? e.forEach(e => target.classList.remove(e)) : target.classList.remove(e)));
             def('addClass', (e) => rts(Array.isArray(e) ? e.forEach(e => target.classList.add(e)) : target.classList.add(e)));
             def('text', (text, add) => rts(add ? target.innerText += text : target.innerText = text));
+            def('link', (url) => rts(self.text(url).attr('href', url)));
+            def('clear', () => rts(self.text(''), self.attr('href', null)));
             def('show', () => self.removeClass('hidden'));
             def('hide', () => self.addClass('hidden'));
             def('style', (props) => {
@@ -74,7 +79,6 @@
                     }
                 }
             });
-            def('attr', (attr, val) => rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
             def('on', (type, listener, capture) => rts(target.addEventListener(type, listener, capture)));
             def('toDom', () => {
                 let root = self.target();
@@ -120,7 +124,8 @@
         infoZone.icon = $touch('div', 'infoStatus');
         infoZone.mainTextZone = $touch('div', 'text');
         infoZone.subTextZone = $touch('div', ['text', 'small']);
-        infoZone.signTextZone = $touch('div', ['text', 'x-small']);
+        infoZone.byTextZone = $touch('span', ['text', 'x-small']).text('by');
+        infoZone.signTextZone = $touch('a', ['text', 'x-small']);
         infoZone.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
 
         const dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
@@ -147,12 +152,13 @@
         }
 
         function resetText() {
-            dropZone.inputContainer.mainTextZone.text('');
-            dropZone.inputContainer.subTextZone.text('');
-            infoZone.mainTextZone.text('');
-            infoZone.subTextZone.text('');
-            infoZone.signTextZone.text('');
-            infoZone.warnTextZone.text('');
+            dropZone.inputContainer.mainTextZone.clear();
+            dropZone.inputContainer.subTextZone.clear();
+            infoZone.mainTextZone.clear();
+            infoZone.subTextZone.clear();
+            infoZone.signTextZone.clear();
+            infoZone.warnTextZone.clear();
+            infoZone.byTextZone.hide();
         }
 
         /**
@@ -239,7 +245,7 @@
                             // As we use cross-domain, it is difficult to know where the error come from,
                             // so we guess that the Woleet API isn't available and set state to need-receipt
                             // if the error came from network
-                            console.log(err);
+                            console.trace(err);
                             if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
                                 state.state = 'needReceipt';
                                 setVue('need-receipt');
@@ -256,7 +262,7 @@
             state.state = 'needReceipt';
             setVue('need-receipt');
             dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
-            dropZone.inputContainer.subTextZone.text('');
+            dropZone.inputContainer.subTextZone.clear();
         }
 
         function getErrorMessage(err) {
@@ -330,12 +336,21 @@
                     const s = message.receipt.signature;
                     const i = message.identityVerificationStatus;
                     const pubKey = s ? s.pubKey : null;
-                    const signee = (s && s.identityURL && i && i.code === 'verified') ? s.identityURL : pubKey;
                     const date = formatDate(message.timestamp).split(' ');
                     const timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
                     infoZone.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
                     infoZone.subTextZone.text('at ' + date[1] + ' ' + timeZone);
-                    infoZone.signTextZone.text(pubKey ? `by ${signee}` : '');
+                    if (s && s.identityURL && i && i.code === 'verified') {
+                        infoZone.signTextZone.link(s.identityURL);
+                        infoZone.byTextZone.show();
+                    }
+                    else if (pubKey) {
+                        infoZone.signTextZone.text(`${pubKey}`);
+                        infoZone.byTextZone.show();
+                    } else {
+                        infoZone.byTextZone.hide();
+                    }
+
                     if (i && i.code && i.code !== 'verified') {
                         infoZone.warnTextZone.text(`Cannot validate identity (${i.code})`)
                     }
@@ -362,7 +377,7 @@
                     dropZone.hide();
                     hashZone.hide();
                     head.cancel.hide();
-                    if(state.state === 'needReceipt') head.receipt.show();
+                    if (state.state === 'needReceipt') head.receipt.show();
                     let detail = getErrorMessage(message);
                     infoZone.mainTextZone.text(detail.main);
                     infoZone.subTextZone.text(detail.sub);

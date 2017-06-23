@@ -25,6 +25,8 @@
          *      show: function():$,
          *      hide: function():$,
          *      text: function(text: string, add?: boolean):$,
+         *      link: function(link: string):$,
+         *      clear: function():$,
          *      style: function(props: object),
          *      attr: function(attr: string, val: *),
          *      on: function(type: string, listener:function, capture: boolean),
@@ -62,6 +64,9 @@
             def('target', function () {
                 return target;
             });
+            def('attr', function (attr, val) {
+                return rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr));
+            });
             def('removeClass', function (e) {
                 return rts(Array.isArray(e) ? e.forEach(function (e) {
                     return target.classList.remove(e);
@@ -74,6 +79,12 @@
             });
             def('text', function (text, add) {
                 return rts(add ? target.innerText += text : target.innerText = text);
+            });
+            def('link', function (url) {
+                return rts(self.text(url).attr('href', url));
+            });
+            def('clear', function () {
+                return rts(self.text(''), self.attr('href', null));
             });
             def('show', function () {
                 return self.removeClass('hidden');
@@ -92,9 +103,6 @@
                         target.style[prop] = props[prop];
                     }
                 }
-            });
-            def('attr', function (attr, val) {
-                return rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr));
             });
             def('on', function (type, listener, capture) {
                 return rts(target.addEventListener(type, listener, capture));
@@ -146,7 +154,8 @@
         infoZone.icon = $touch('div', 'infoStatus');
         infoZone.mainTextZone = $touch('div', 'text');
         infoZone.subTextZone = $touch('div', ['text', 'small']);
-        infoZone.signTextZone = $touch('div', ['text', 'x-small']);
+        infoZone.byTextZone = $touch('span', ['text', 'x-small']).text('by');
+        infoZone.signTextZone = $touch('a', ['text', 'x-small']);
         infoZone.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
 
         var dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
@@ -173,12 +182,13 @@
         }
 
         function resetText() {
-            dropZone.inputContainer.mainTextZone.text('');
-            dropZone.inputContainer.subTextZone.text('');
-            infoZone.mainTextZone.text('');
-            infoZone.subTextZone.text('');
-            infoZone.signTextZone.text('');
-            infoZone.warnTextZone.text('');
+            dropZone.inputContainer.mainTextZone.clear();
+            dropZone.inputContainer.subTextZone.clear();
+            infoZone.mainTextZone.clear();
+            infoZone.subTextZone.clear();
+            infoZone.signTextZone.clear();
+            infoZone.warnTextZone.clear();
+            infoZone.byTextZone.hide();
         }
 
         /**
@@ -249,7 +259,7 @@
                             // As we use cross-domain, it is difficult to know where the error come from,
                             // so we guess that the Woleet API isn't available and set state to need-receipt
                             // if the error came from network
-                            console.log(err);
+                            console.trace(err);
                             if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
                                 state.state = 'needReceipt';
                                 setVue('need-receipt');
@@ -280,7 +290,7 @@
             state.state = 'needReceipt';
             setVue('need-receipt');
             dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
-            dropZone.inputContainer.subTextZone.text('');
+            dropZone.inputContainer.subTextZone.clear();
         }
 
         function getErrorMessage(err) {
@@ -354,12 +364,20 @@
                     var s = message.receipt.signature;
                     var i = message.identityVerificationStatus;
                     var pubKey = s ? s.pubKey : null;
-                    var signee = s && s.identityURL && i && i.code === 'verified' ? s.identityURL : pubKey;
                     var date = formatDate(message.timestamp).split(' ');
                     var timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
                     infoZone.mainTextZone.text((pubKey ? 'Signed' : 'Timestamped') + ' on ' + date[0]);
                     infoZone.subTextZone.text('at ' + date[1] + ' ' + timeZone);
-                    infoZone.signTextZone.text(pubKey ? 'by ' + signee : '');
+                    if (s && s.identityURL && i && i.code === 'verified') {
+                        infoZone.signTextZone.link(s.identityURL);
+                        infoZone.byTextZone.show();
+                    } else if (pubKey) {
+                        infoZone.signTextZone.text('' + pubKey);
+                        infoZone.byTextZone.show();
+                    } else {
+                        infoZone.byTextZone.hide();
+                    }
+
                     if (i && i.code && i.code !== 'verified') {
                         infoZone.warnTextZone.text('Cannot validate identity (' + i.code + ')');
                     }

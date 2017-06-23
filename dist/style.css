@@ -90,6 +90,10 @@
   text-align: initial;
   margin-left: 15px;
 }
+.woleet-widget .widget > .body .infoZone > a {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
 .woleet-widget .widget > .body .hashZone span {
   font-size: small;
   color: #888;

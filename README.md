@@ -9,7 +9,7 @@ compatible anchoring receipts.
 
 Type `./build.sh` on the project's root to:
 - install build tools into the `./node_modules/` directory
-- install runtime dependencies into the `./bower_components/` directory
+- install runtime dependencies into the `./node_modules/` directory
 - build the libraries into the `./dist/`directory
 
 # Using Woleet verification widget
@@ -19,33 +19,31 @@ Type `./build.sh` on the project's root to:
 This web widget uses the [Woleet web libraries](https://github.com/woleet/woleet-weblibs) and so has the same
 [limitations](https://github.com/woleet/woleet-weblibs#limitations) and [runtime dependencies](https://github.com/woleet/woleet-weblibs#runtime-dependencies).
 
-## Installation using Bower
+## Installation using npm
 
-You can use Bower to add Woleet web libraries to your project:
+You can use npm to add Woleet web libraries to your project:
 
-```json
-  "dependencies": {
-    "woleet-widget": "*"
-  }
+```bash
+npm i woleet-widget
 ```
-***In this documentation, it is supposed that Bower is used to install Woleet verification widget.***
+***In this documentation, it is supposed that npm is used to install Woleet verification widget.***
 
 ## Initialization
 
 To use the Woleet verification widget you have to include the following components:
 
 ```html
-<link href="../bower_components/woleet-widget/dist/style.css" rel="stylesheet">
-<script src="../bower_components/woleet-widget/dist/woleet-widget.js"></script>
-<script src="../bower_components/woleet-weblibs/dist/woleet-weblibs.js"></script>
+<link href="./node_modules/woleet-widget/dist/style.css" rel="stylesheet">
+<script src="./node_modules/woleet-widget/dist/woleet-widget.js"></script>
+<script src="./node_modules/woleet-weblibs/dist/woleet-weblibs.js"></script>
 ```
 
 or their minimized equivalent:
 
 ```html
-<link href="../bower_components/woleet-widget/dist/style.css" rel="stylesheet">
-<script src="../bower_components/woleet-widget/dist/woleet-widget.min.js"></script>
-<script src="../bower_components/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
+<link href="./node_modules/woleet-widget/dist/style.css" rel="stylesheet">
+<script src="./node_modules/woleet-widget/dist/woleet-widget.min.js"></script>
+<script src="./node_modules/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
 ```
 
 ## Basic usage
