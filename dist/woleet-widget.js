@@ -302,7 +302,7 @@
             switch (err) {
                 case 'need-receipt':
                     detail.main = 'File unknown to Woleet';
-                    detail.sub = 'The receipt cannot be retreived from Woleet: you must provide it to verify this file';
+                    detail.sub = 'The receipt cannot be retrieved from Woleet: you must provide it to verify this file';
                     break;
                 case 'target_hash_mismatch':
                     detail.main = 'The provided receipt is not meant for this file';
@@ -338,7 +338,7 @@
                     break;
                 case 'invalid_receipt_signature':
                     detail.main = 'Invalid receipt signature';
-                    detail.sub = 'The provided receipt is packed with a signature field witch is invalid';
+                    detail.sub = 'The receipt\'s signature attribute is invalid';
                     break;
                 case 'error_while_getting_transaction':
                     detail.main = 'Cannot get transaction';
