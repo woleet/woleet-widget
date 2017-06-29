@@ -1,7 +1,7 @@
 {
-  "name": "woleet-js-widget",
+  "name": "woleet-widget",
   "version": "0.3.0",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "babel-preset-latest": "^6.22.0",
     "gulp": "^3.9.1",
