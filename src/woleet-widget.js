@@ -259,6 +259,7 @@
         }
 
         function forceReceipt() {
+            resetText();
             state.state = 'needReceipt';
             setVue('need-receipt');
             dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
