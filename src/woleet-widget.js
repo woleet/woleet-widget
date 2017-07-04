@@ -282,7 +282,7 @@
                     detail.sub = 'The file matched but the receipt isn\'t available yet please try again latter';
                     break;
                 case 'target_hash_mismatch':
-                    detail.main = 'The receipt is not meant for this file';
+                    detail.main = 'The receipt mismatch the file';
                     detail.sub = 'The receipt\'s target_hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
