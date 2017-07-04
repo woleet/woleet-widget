@@ -6,16 +6,14 @@ const gulp = require("gulp"),
     rename = require("gulp-rename"),
     sourcemaps = require('gulp-sourcemaps');
 
-//
+// Generate Widget style
 gulp.task('less', function () {
     return gulp.src('./res/*.less')
-        //.pipe(sourcemaps.init())
         .pipe(less())
-        //.pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist'));
 });
 
-// Uglify widget
+// Uglify Widget source code
 gulp.task("uglifyWidget", () => {
     return gulp.src(['src/woleet-widget.js'])
         .pipe(sourcemaps.init())

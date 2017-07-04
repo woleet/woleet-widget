@@ -29,14 +29,13 @@
     background-color: @color0;
     border-radius: 20px;
     border: 3px solid @color0;
-    //height: 130px;
     width: 330px;
-    color:#000;
-    text-decoration:none;
-    line-height:1em;
-    font-weight:normal;
-    padding:0;
-    margin:0;
+    color: #000;
+    text-decoration: none;
+    line-height: 1em;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
     box-sizing: content-box;
     -webkit-box-sizing: content-box;
     > div {
@@ -47,10 +46,8 @@
 
     > .head {
       background: @color0;
-      //border-radius: 17px;
       height: 25px;
       line-height: 25px;
-      //display: inline-flex;
       border-radius: 17px;
       box-sizing: content-box;
       -webkit-box-sizing: content-box;
@@ -83,6 +80,7 @@
         border-radius: 5px;
         display: block;
         padding: 5px 10px;
+        line-height: initial;
         box-shadow: 0 2px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 0.75);
 
         &:active {
@@ -182,7 +180,6 @@
           }
         }
       }
-
     }
 
     .hidden {
@@ -248,6 +245,5 @@
         opacity: 0;
       }
     }
-
   }
 }
