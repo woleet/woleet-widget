@@ -282,31 +282,31 @@
                     detail.sub = 'The file matched but the receipt isn\'t available yet please try again latter';
                     break;
                 case 'target_hash_mismatch':
-                    detail.main = 'The provided receipt is not meant for this file';
+                    detail.main = 'The receipt is not meant for this file';
                     detail.sub = 'The receipt\'s target_hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
-                    detail.main = 'The provided receipt cannot be parsed';
+                    detail.main = 'The receipt cannot be parsed';
                     detail.sub = 'The file you provided doesn\'t look like a receipt';
                     break;
                 case 'merkle_root_mismatch':
-                    detail.main = 'The provided receipt seems corrupted';
+                    detail.main = 'The receipt seems corrupted';
                     detail.sub = 'The receipt\'s merkle_root attribute does not match the proof result';
                     break;
                 case 'non_sha256_target_proof_element':
-                    detail.main = 'The provided receipt seems corrupted';
+                    detail.main = 'The receipt seems corrupted';
                     detail.sub = 'An attribute in the proof (parent or left or right) in not a SHA256 hash';
                     break;
                 case 'invalid_parent_in_proof_element':
-                    detail.main = 'The provided receipt seems corrupted';
+                    detail.main = 'The receipt seems corrupted';
                     detail.sub = 'A parent in the proof does not match SHA256(left+right).';
                     break;
                 case 'invalid_receipt_format':
-                    detail.main = 'The provided receipt seems corrupted';
+                    detail.main = 'The receipt seems corrupted';
                     detail.sub = 'The proof miss an attribute (parent or left or right).';
                     break;
                 case 'invalid_target_proof':
-                    detail.main = 'The provided receipt seems corrupted';
+                    detail.main = 'The receipt seems corrupted';
                     detail.sub = 'The receipt does not conform to the Chainpoint 1.x format';
                     break;
                 case 'tx_not_found':
