@@ -201,7 +201,9 @@
             if (state.state === 'needReceipt') {
                 setVue('pending');
                 parseReceiptFile(file)
-                    .then((receipt) => woleet.verify.DAB(state.hash, receipt, setProgress))
+                    .then((receipt) => {
+                    return woleet.verify.DAB(state.hash, receipt, setProgress)
+                })
                     .then((res) => {
                         if (res.code !== 'verified') throw new Error(res.code);
                         setVue('woleet-ok', res);
@@ -249,8 +251,7 @@
                             if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
                                 state.state = 'needReceipt';
                                 setVue('need-receipt');
-                            }
-                            else {
+                            } else {
                                 setVue('error', err);
                             }
                         })
@@ -275,6 +276,10 @@
                 case 'need-receipt':
                     detail.main = 'File unknown to Woleet';
                     detail.sub = 'The receipt cannot be retrieved from Woleet: you must provide it to verify this file';
+                    break;
+                case 'file_matched_but_anchor_not_yet_processed':
+                    detail.main = 'Receipt not yet available';
+                    detail.sub = 'The file matched but the receipt isn\'t available yet please try again latter';
                     break;
                 case 'target_hash_mismatch':
                     detail.main = 'The provided receipt is not meant for this file';
