@@ -252,7 +252,7 @@
                     woleet.verify.WoleetDAB(hash, setProgress)
                         .then((results) => {
                             state.state = 'done';
-                            addResults(results.sort((a, b) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0));
+                            addResults(results.sort((b, a) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0));
                         })
                         .catch((err) => {
                             // As we use cross-domain, it is difficult to know where the error come from,
