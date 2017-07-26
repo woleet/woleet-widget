@@ -1,5 +1,5 @@
-@background1: #f6f6f6; // Appears 2 times
-@background2: #4c668a; // Appears 3 times
+@background1: #f6f6f6;
+@background2: #4c668a;
 
 @color2: #f05228;
 
@@ -55,7 +55,12 @@
       box-sizing: content-box;
       -webkit-box-sizing: content-box;
 
+      .floatright {
+        float: right;
+      }
+
       .woleet-logo {
+        float: left;
         background-size: 100%;
         background: data-uri(@logo_icon) no-repeat;
         margin-top: 1px;
@@ -64,16 +69,15 @@
       }
 
       .mini-button {
+        float: left;
+        margin-left: 5px;
         background-size: 100% !important;
         height: 24px;
         width: 24px;
-        position: absolute;
-        margin: -26px 0 0 280px;
       }
 
       .receipt-button {
-        margin-left: 190px;
-        margin-top: -26px;
+        float: left;
         color: #fff;
         white-space: nowrap;
         font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
@@ -95,7 +99,6 @@
         &:focus {
           outline: none;
         }
-
       }
 
       .mini-button.reset {
@@ -109,7 +112,6 @@
         -moz-box-shadow: @cancel_button_inset_rule;
         box-shadow: @cancel_button_inset_rule;
       }
-
     }
 
     > .body {
@@ -207,7 +209,6 @@
             display: block;
             padding: 5px 0;
             background-origin: content-box;
-            //margin-bottom: 25px;
 
             > .text {
               padding-left: 70px;
@@ -226,7 +227,6 @@
             display: block;
             padding: 5px 0;
             background-origin: content-box;
-            //margin-bottom: 25px;
           }
           display: none;
         }
@@ -286,7 +286,7 @@
       }
 
       > .up-arrow {
-        background: @background2 data-uri(@arrow_up_icon) no-repeat  15px 5px;
+        background: @background2 data-uri(@arrow_up_icon) no-repeat 15px 5px;
         background-size: 20px;
       }
     }

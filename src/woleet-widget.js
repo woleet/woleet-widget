@@ -87,10 +87,10 @@
                 for (let e in self) {
                     const elt = self[e];
                     try {
-                        if (Array.isArray(elt)) {
+                        if (Array.isArray(elt))
                             elt.forEach((e) => root.appendChild(e.toDom()))
-                        }//.forEach(root.appendChild);
-                        else root.appendChild(elt.toDom())
+                        else
+                            root.appendChild(elt.toDom())
                     } catch (err) {
                         console.warn(e, target, self[e], err);
                     }
@@ -114,9 +114,12 @@
         const widget = $touch('div', 'widget');
         const head = widget.head = $touch('div', 'head');
         head.logo = $touch('div', 'woleet-logo');
-        head.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
-        head.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
-        head.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop receipt');
+
+        head.x = $touch('div', 'floatright');
+        head.x.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop receipt');
+        head.x.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
+        head.x.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
+
         const body = widget.body = $touch('div', 'body');
 
         const hashZone = body.hashZone = $touch('div', 'hashZone');
@@ -164,9 +167,9 @@
             infoZone.hide();
             dropZone.show();
             hashZone.hide();
-            head.reset.hide();
-            head.cancel.hide();
-            head.receipt.hide();
+            head.x.reset.hide();
+            head.x.cancel.hide();
+            head.x.receipt.hide();
             foot.hide();
         }
 
@@ -368,7 +371,7 @@
             item.addClass(index ? 'reduced' : 'expanded');
             dropZone.hide();
             hashZone.hide();
-            head.cancel.hide();
+            head.x.cancel.hide();
             switch (vue) {
                 case 'woleet-ok':
                     const s = message.receipt.signature;
@@ -395,10 +398,10 @@
                     }
                     item.addClass('validated');
                     dropZone.attr('disabled', true);
-                    head.receipt.show();
+                    head.x.receipt.show();
                     break;
                 case 'error':
-                    if (state.state === 'needReceipt') head.receipt.show();
+                    if (state.state === 'needReceipt') head.x.receipt.show();
                     let detail = getErrorMessage(message);
                     item.mainTextZone.text(detail.main);
                     item.subTextZone.text(detail.sub);
@@ -407,7 +410,7 @@
                     item.addClass('error');
                     break;
             }
-            head.reset.show();
+            head.x.reset.show();
         }
 
         function setVue(vue, message) {
@@ -422,11 +425,11 @@
                     infoZone.hide();
                     dropZone.show();
                     hashZone.hide();
-                    head.cancel.hide();
-                    head.receipt.hide();
+                    head.x.cancel.hide();
+                    head.x.receipt.hide();
                     dropZone.inputContainer.mainTextZone.text('File unknown to Woleet');
                     dropZone.inputContainer.subTextZone.text('Drop it\'s receipt');
-                    head.reset.show();
+                    head.x.reset.show();
                     break;
                 case 'error':
                     resetText();
@@ -435,8 +438,8 @@
                     break;
                 case 'pending':
                     resetText();
-                    head.cancel.show();
-                    head.receipt.hide();
+                    head.x.cancel.show();
+                    head.x.receipt.hide();
                     infoZone.hide();
                     dropZone.hide();
                     hashZone.show();
