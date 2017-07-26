@@ -24,6 +24,7 @@
          *      show: function():$,
          *      hide: function():$,
          *      text: function(text: string, add?: boolean):$,
+         *      html: function(text: string, add?: boolean):$,
          *      link: function(link: string):$,
          *      clear: function():$,
          *      style: function(props: object),
@@ -33,6 +34,11 @@
          *      }} $
          */
 
+        const defineProperty = (target) => (name, value) => Object.defineProperty(target, name, {
+            enumerable: false,
+            value
+        });
+
         /**
          * @description "virtual" DOM element Object
          * @param {Element|string} element
@@ -41,13 +47,8 @@
          */
         const $ = function (element, classes) {
 
-            if (element instanceof Element) {
-
-            } else if (typeof element === 'string') {
-                let element = document.createElement(element);
-                if (classes) element.addClass(classes);
-            } else {
-                throw new TypeError
+            if ((!element instanceof Element)) {
+                throw new TypeError;
             }
 
             const target = element;
@@ -56,13 +57,14 @@
              */
             const self = this;
             const rts = () => self;
-            const def = (name, value) => Object.defineProperty(self, name, {enumerable: false, value});
+            const def = defineProperty(this);
 
             def('target', () => target);
             def('attr', (attr, val) => rts(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
             def('removeClass', (e) => rts(Array.isArray(e) ? e.forEach(e => target.classList.remove(e)) : target.classList.remove(e)));
             def('addClass', (e) => rts(Array.isArray(e) ? e.forEach(e => target.classList.add(e)) : target.classList.add(e)));
             def('text', (text, add) => rts(add ? target.innerText += text : target.innerText = text));
+            def('html', (text, add) => rts(add ? target.innerHTML += text : target.innerHTML = text));
             def('link', (url) => rts(self.text(url).attr('href', url)));
             def('clear', () => rts(self.text(''), self.attr('href', null)));
             def('show', () => self.removeClass('hidden'));
@@ -83,12 +85,14 @@
             def('toDom', () => {
                 let root = self.target();
                 for (let e in self) {
-                    if (!self.hasOwnProperty(e)) continue;
-                    if (!e instanceof $) continue;
+                    const elt = self[e];
                     try {
-                        root.appendChild(self[e].toDom())
+                        if (Array.isArray(elt)) {
+                            elt.forEach((e) => root.appendChild(e.toDom()))
+                        }//.forEach(root.appendChild);
+                        else root.appendChild(elt.toDom())
                     } catch (err) {
-                        console.log(e, err);
+                        console.warn(e, target, self[e], err);
                     }
                 }
                 return root;
@@ -121,18 +125,32 @@
         const progressBar = hashZone.hashProgessContainer.progressBar = $touch('div', 'progressBar');
 
         const infoZone = body.infoZone = $touch('div', 'infoZone');
-        infoZone.icon = $touch('div', 'infoStatus');
-        infoZone.mainTextZone = $touch('div', 'text');
-        infoZone.subTextZone = $touch('div', ['text', 'small']);
-        infoZone.byTextZone = $touch('span', ['text', 'x-small']).text('by');
-        infoZone.signTextZone = $touch('a', ['text', 'x-small']);
-        infoZone.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
+        infoZone.items = [];
+        defineProperty(infoZone)('addItem', function () {
+            const item = $touch('div', 'infoZoneItem');
+            item.mainTextZone = $touch('div', 'text');
+            item.subTextZone = $touch('div', ['text', 'small']);
+            item.byTextZone = $touch('span', ['text', 'x-small']).text('by');
+            item.signTextZone = $touch('a', ['text', 'x-small']);
+            item.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
+            item.on('click', () => selectItem(item, this.items));
+            this.items.push(item);
+            return item;
+        });
+        defineProperty(infoZone)('flush', function () {
+            this.html('');
+            this.items = [];
+            return this;
+        });
 
         const dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
         dropZone.inputContainer = $touch('div');
         dropZone.inputContainer.mainTextZone = $touch('div', 'text');
         dropZone.inputContainer.subTextZone = $touch('div', ['text', 'small']);
         dropZone.inputContainer.input = $touch('input', ['dropZone', 'clickable']).attr('type', 'file').on('change', setInputFile);
+
+        const foot = widget.foot = $touch('div', 'foot');
+        foot.expand = $touch('div', ['expand', 'expand-button', 'clickable']).on('click', expandList);
 
         init();
 
@@ -149,16 +167,13 @@
             head.reset.hide();
             head.cancel.hide();
             head.receipt.hide();
+            foot.hide();
         }
 
         function resetText() {
             dropZone.inputContainer.mainTextZone.clear();
             dropZone.inputContainer.subTextZone.clear();
-            infoZone.mainTextZone.clear();
-            infoZone.subTextZone.clear();
-            infoZone.signTextZone.clear();
-            infoZone.warnTextZone.clear();
-            infoZone.byTextZone.hide();
+            infoZone.flush();
         }
 
         /**
@@ -201,9 +216,7 @@
             if (state.state === 'needReceipt') {
                 setVue('pending');
                 parseReceiptFile(file)
-                    .then((receipt) => {
-                    return woleet.verify.DAB(state.hash, receipt, setProgress)
-                })
+                    .then((receipt) => woleet.verify.DAB(state.hash, receipt, setProgress))
                     .then((res) => {
                         if (res.code !== 'verified') throw new Error(res.code);
                         setVue('woleet-ok', res);
@@ -234,20 +247,14 @@
 
                 function woleetDAB(hash) {
                     woleet.verify.WoleetDAB(hash, setProgress)
-                        .then((result) => {
-                            if (result.length) {
-                                state.state = 'done';
-                                const res = result[0];
-                                if (res.code !== 'verified') throw new Error(res.code);
-                                setVue('woleet-ok', res);
-                            }
-                            else throw new Error('need-receipt');
+                        .then((results) => {
+                            state.state = 'done';
+                            addResults(results);
                         })
                         .catch((err) => {
                             // As we use cross-domain, it is difficult to know where the error come from,
                             // so we guess that the Woleet API isn't available and set state to need-receipt
                             // if the error came from network
-                            console.trace(err);
                             if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
                                 state.state = 'needReceipt';
                                 setVue('need-receipt');
@@ -261,6 +268,7 @@
 
         function forceReceipt() {
             resetText();
+            foot.hide();
             state.state = 'needReceipt';
             setVue('need-receipt');
             dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
@@ -330,40 +338,84 @@
             return detail;
         }
 
-        function setVue(vue, message) {
+        function addResults(results) {
+            resetText();
+            if (results.length) {
+
+                if (results.length > 1) {
+                    foot.expand.text(results.length + '+');
+                    foot.expand.removeClass('up-arrow');
+                    foot.show();
+                }
+
+                results.forEach((res, i) => {
+                    if (res.code === 'verified')
+                        addVue('woleet-ok', res, i);
+                    else
+                        addVue('error', res.code, i);
+                });
+                infoZone.toDom();
+            }
+            else {
+                state.state = 'needReceipt';
+                setVue('need-receipt');
+            }
+        }
+
+        function addVue(vue, message, index) {
+            infoZone.show();
+            const item = infoZone.addItem();
+            item.addClass(index ? 'reduced' : 'expanded');
+            dropZone.hide();
+            hashZone.hide();
+            head.cancel.hide();
             switch (vue) {
                 case 'woleet-ok':
-                    resetText();
-                    infoZone.removeClass(['error']);
-                    infoZone.show();
-                    dropZone.hide();
-                    hashZone.hide();
-                    head.cancel.hide();
                     const s = message.receipt.signature;
                     const i = message.identityVerificationStatus;
                     const pubKey = s ? s.pubKey : null;
                     const date = formatDate(message.timestamp).split(' ');
                     const timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
-                    infoZone.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
-                    infoZone.subTextZone.text('at ' + date[1] + ' ' + timeZone);
+                    item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
+                    item.subTextZone.text('at ' + date[1] + ' ' + timeZone);
                     if (s && s.identityURL && i && i.code === 'verified') {
-                        infoZone.signTextZone.link(s.identityURL);
-                        infoZone.byTextZone.show();
+                        item.byTextZone.addClass('link');
+                        item.signTextZone.link(s.identityURL);
+                        item.byTextZone.show();
                     }
                     else if (pubKey) {
-                        infoZone.signTextZone.text(`${pubKey}`);
-                        infoZone.byTextZone.show();
+                        item.signTextZone.text(`${pubKey}`);
+                        item.byTextZone.show();
                     } else {
-                        infoZone.byTextZone.hide();
+                        item.byTextZone.hide();
                     }
 
                     if (i && i.code && i.code !== 'verified') {
-                        infoZone.warnTextZone.text(`Cannot validate identity (${i.code})`)
+                        item.warnTextZone.text(`Cannot validate identity (${i.code})`)
                     }
-                    infoZone.addClass('validated');
+                    item.addClass('validated');
                     dropZone.attr('disabled', true);
-                    head.reset.show();
                     head.receipt.show();
+                    break;
+                case 'error':
+                    if (state.state === 'needReceipt') head.receipt.show();
+                    let detail = getErrorMessage(message);
+                    item.mainTextZone.text(detail.main);
+                    item.subTextZone.text(detail.sub);
+                    item.byTextZone.hide();
+                    item.warnTextZone.hide();
+                    item.addClass('error');
+                    break;
+            }
+            head.reset.show();
+        }
+
+        function setVue(vue, message) {
+            switch (vue) {
+                case 'woleet-ok':
+                    resetText();
+                    addVue('woleet-ok', message, 0);
+                    infoZone.toDom();
                     break;
                 case 'need-receipt':
                     resetText();
@@ -378,17 +430,8 @@
                     break;
                 case 'error':
                     resetText();
-                    infoZone.removeClass(['validated']);
-                    infoZone.show();
-                    dropZone.hide();
-                    hashZone.hide();
-                    head.cancel.hide();
-                    if (state.state === 'needReceipt') head.receipt.show();
-                    let detail = getErrorMessage(message);
-                    infoZone.mainTextZone.text(detail.main);
-                    infoZone.subTextZone.text(detail.sub);
-                    infoZone.addClass('error');
-                    head.reset.show();
+                    addVue('error', message, 0);
+                    infoZone.toDom();
                     break;
                 case 'pending':
                     resetText();
@@ -418,6 +461,45 @@
                 };
                 reader.readAsText(receipt);
             });
+        }
+
+        let expanded = false;
+        let selected = null;
+
+        function selectItem(item, items) {
+            if (!expanded) return;
+
+            if (selected === item) {
+                //clicked on item for the second time
+                return expandList();
+            }
+
+            selected = item;
+
+            items.forEach((item) => {
+                item.removeClass('expanded');
+                item.addClass('reduced');
+            });
+
+            item.addClass('expanded');
+            item.removeClass('reduced');
+        }
+
+        function expandList() {
+            const items = infoZone.items;
+            if (expanded) {
+                body.removeClass('expanded');
+                items.forEach((item) => item.removeClass('clickable'));
+                foot.expand.text(items.length + "+");
+                foot.expand.removeClass("up-arrow");
+                expanded = false;
+            } else {
+                body.addClass('expanded');
+                items.forEach((item) => item.addClass('clickable'));
+                foot.expand.text('');
+                foot.expand.addClass('up-arrow');
+                expanded = true;
+            }
         }
 
         function reset() {

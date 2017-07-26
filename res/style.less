@@ -1,20 +1,23 @@
-// Color variables (appears count calculates by raw css)
-@color0: #4c668a; // Appears 3 times
-@color1: #ffffff; // Appears 2 times
+@background1: #f6f6f6; // Appears 2 times
+@background2: #4c668a; // Appears 3 times
+
 @color2: #f05228;
+
+@default_height: 85px;
 
 @button_color_r: 128;
 @button_color_g: 187;
 @button_color_b: 60;
-
-// Width variables (appears count calculates by raw css)
-@width3: 180px; // Appears 2 times
 
 @logo_icon: logo.svg;
 @info_icon: information.svg;
 @checked_icon: checked.svg;
 @invalid_icon: invalid.svg;
 @refresh_icon: refresh.svg;
+@arrow_up_icon: arrow_up.svg;
+
+@height_transition: height 0.5s, background-position 0.5s;
+@padding_transition: padding-top .5s;
 
 @progress_background: 45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent;
 @progress_background_size: 40px 40px;
@@ -26,9 +29,9 @@
 .woleet-widget {
 
   .widget {
-    background-color: @color0;
+    background-color: @background2;
     border-radius: 20px;
-    border: 3px solid @color0;
+    border: 3px solid @background2;
     width: 330px;
     color: #000;
     text-decoration: none;
@@ -39,13 +42,13 @@
     box-sizing: content-box;
     -webkit-box-sizing: content-box;
     > div {
-      background: #f6f6f6;
+      background: @background1;
       border-radius: 0 0 17px 17px;
-      padding: 5px 20px;
+      padding: 5px;
     }
 
     > .head {
-      background: @color0;
+      background: @background2;
       height: 25px;
       line-height: 25px;
       border-radius: 17px;
@@ -82,7 +85,6 @@
         padding: 5px 10px;
         line-height: initial;
         box-shadow: 0 2px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 0.75);
-        line-height: initial;
 
         &:active {
           box-shadow: 0 1px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 1);
@@ -112,9 +114,47 @@
 
     > .body {
       font-family: sans-serif;
-      height: 85px;
+      height: @default_height;
       box-sizing: content-box;
       -webkit-box-sizing: content-box;
+
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      &.expanded {
+        height: initial;
+        .infoZone {
+          .infoZoneItem {
+
+            &:first-child {
+              border-top: none;
+            }
+
+            border-top: 1px solid @background2;
+            overflow: hidden;
+
+            &.reduced {
+              height: 25px;
+              display: block;
+              padding: 5px 0;
+              background-origin: content-box;
+              background-position-x: 30px;
+
+              > .text {
+                text-align: left;
+                margin-left: 80px;
+                padding: 0 5px;
+                &.small {
+                  padding: 5px 0 0 5px;
+                }
+              }
+            }
+          }
+        }
+      }
 
       > div {
         animation: fly .5s ease;
@@ -142,15 +182,53 @@
       }
 
       .infoZone {
-        > .text {
-          padding-left: 70px;
-          text-align: initial;
-          margin-left: 15px;
-        }
+        .infoZoneItem {
 
-        > a {
-          margin-left: 0 !important;
-          padding-left: 0 !important;
+          transition: @height_transition;
+
+          > .text {
+            transition: @padding_transition;
+
+            &:first-child {
+              white-space: nowrap;
+            }
+          }
+
+          &.validated {
+            background: data-uri(@checked_icon) no-repeat;
+          }
+
+          &.error {
+            background: data-uri(@invalid_icon) no-repeat;
+          }
+
+          &.expanded {
+            height: 83px;
+            display: block;
+            padding: 5px 0;
+            background-origin: content-box;
+            //margin-bottom: 25px;
+
+            > .text {
+              padding-left: 70px;
+              text-align: initial;
+              margin-left: 15px;
+            }
+
+            > a {
+              margin-left: 0 !important;
+              padding-left: 0 !important;
+            }
+          }
+
+          &.expanded {
+            height: 83px;
+            display: block;
+            padding: 5px 0;
+            background-origin: content-box;
+            //margin-bottom: 25px;
+          }
+          display: none;
         }
       }
 
@@ -183,6 +261,36 @@
       }
     }
 
+    > .foot {
+      float: right;
+      padding: 0;
+      border-radius: 0;
+
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      > .expand {
+        height: 30px;
+        background: @background2;
+        width: 45px;
+        border-radius: 40px 0 20px 0;
+        margin-top: -27px;
+        line-height: 28px;
+        text-align: right;
+        font-size: large;
+        padding: 1px 5px;
+        color: @background1;
+      }
+
+      > .up-arrow {
+        background: @background2 data-uri(@arrow_up_icon) no-repeat  15px 5px;
+        background-size: 20px;
+      }
+    }
+
     .hidden {
       display: none !important;
     }
@@ -205,26 +313,6 @@
       }
     }
 
-    .infoStatus {
-      display: none;
-      height: 70px;
-      width: 70px;
-      margin: 6px 0;
-      position: absolute;
-    }
-
-    .validated .infoStatus {
-      background-size: 100%;
-      background: data-uri(@checked_icon) no-repeat;
-      display: block;
-    }
-
-    .error .infoStatus {
-      background-size: 100%;
-      background: data-uri(@invalid_icon) no-repeat;
-      display: block;
-    }
-
     .clickable {
       &:hover {
         cursor: pointer;
@@ -241,6 +329,13 @@
     }
 
     @keyframes fly {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes reduce {
       from {
         transform: scale(0);
         opacity: 0;
