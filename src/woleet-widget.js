@@ -47,13 +47,8 @@
          */
         const $ = function (element, classes) {
 
-            if (element instanceof Element) {
-
-            } else if (typeof element === 'string') {
-                let element = document.createElement(element);
-                if (classes) element.addClass(classes);
-            } else {
-                throw new TypeError
+            if ((!element instanceof Element)) {
+                throw new TypeError;
             }
 
             const target = element;
