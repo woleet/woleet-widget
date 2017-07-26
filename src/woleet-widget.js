@@ -88,7 +88,7 @@
                     const elt = self[e];
                     try {
                         if (Array.isArray(elt))
-                            elt.forEach((e) => root.appendChild(e.toDom()))
+                            elt.forEach((e) => root.appendChild(e.toDom()));
                         else
                             root.appendChild(elt.toDom())
                     } catch (err) {
@@ -252,7 +252,7 @@
                     woleet.verify.WoleetDAB(hash, setProgress)
                         .then((results) => {
                             state.state = 'done';
-                            addResults(results);
+                            addResults(results.sort((a, b) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0));
                         })
                         .catch((err) => {
                             // As we use cross-domain, it is difficult to know where the error come from,
