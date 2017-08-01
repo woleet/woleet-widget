@@ -10,5 +10,3 @@
 
 *.tgz
 *.log
-
-/dist/
