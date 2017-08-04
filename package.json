@@ -14,13 +14,7 @@
     "less": "^2.7.2"
   },
   "scripts": {
-    "build": "gulp",
-    "prestart": "docker build -t woleet-widget .",
-    "start": "docker run -d -p 80:80 --name 'woleet-widget' woleet-widget",
-    "poststart": "docker logs woleet-widget --tail 100 -f",
-    "stop": "docker stop woleet-widget",
-    "poststop": "docker rm woleet-widget",
-    "restart": "npm stop && npm start"
+    "build": "gulp"
   },
   "description": "This repository contains the sources code of **Woleet verification widget**.",
   "main": "gulpfile.js",
