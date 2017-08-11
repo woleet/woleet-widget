@@ -285,12 +285,12 @@
             const detail = {};
             switch (err) {
                 case 'need-receipt':
-                    detail.main = 'File unknown to Woleet';
-                    detail.sub = 'The receipt cannot be retrieved from Woleet: you must provide it to verify this file';
+                    detail.main = 'No receipt found for this file';
+                    detail.sub = 'No public receipt found on Woleet: you must provide one to verify this file';
                     break;
                 case 'file_matched_but_anchor_not_yet_processed':
-                    detail.main = 'Receipt not yet available';
-                    detail.sub = 'The file matched but the receipt isn\'t available yet please try again latter';
+                    detail.main = 'Receipt not yet provable';
+                    detail.sub = 'A receipt has been found on Woleet, but is not yet provable. Please try again in 1 hour.';
                     break;
                 case 'target_hash_mismatch':
                     detail.main = 'The receipt mismatch the file';
@@ -427,8 +427,8 @@
                     hashZone.hide();
                     head.x.cancel.hide();
                     head.x.receipt.hide();
-                    dropZone.inputContainer.mainTextZone.text('File unknown to Woleet');
-                    dropZone.inputContainer.subTextZone.text('Drop it\'s receipt');
+                    dropZone.inputContainer.mainTextZone.text('No receipt found for this file');
+                    dropZone.inputContainer.subTextZone.text('Drop a receipt');
                     head.x.reset.show();
                     break;
                 case 'error':
