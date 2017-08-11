@@ -1,9 +1,9 @@
 # Woleet verification widget
 
 This repository contains the sources code of **Woleet verification widget**.
-This web widget can be used in any web application to:
-- verify the existence and get the timestamp of a file anchored in the Bitcoin blockchain using any [Chainpoint 1.x](http://www.chainpoint.org/#v1x) compatible tool.</li>
-- verify the existence, the validity and get the timestamp of a signature anchored in the Bitcoin blockchain using Woleet's <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to [Chainpoint 1.x](http://www.chainpoint.org/#v1x) (the signee identity is also verified if provided)</li>
+This web widget can be easily embedded into any web application to:
+- **verify** the **existence** and get the **timestamp** of a **file** anchored in the Bitcoin blockchain using any [Chainpoint 1.x](http://www.chainpoint.org/#v1x) compatible tool.</li>
+- **verify** the **existence**, the **validity** and get the **timestamp** of a **signature** anchored in the Bitcoin blockchain using Woleet's <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to [Chainpoint 1.x](http://www.chainpoint.org/#v1x) (the signee identity is also verified if provided)</li>
 
 # Building Woleet verification widget
 
@@ -19,7 +19,7 @@ Type `./build.sh` on the project's root to:
 This web widget uses the [Woleet web libraries](https://github.com/woleet/woleet-weblibs) and so has the same
 [limitations](https://github.com/woleet/woleet-weblibs#limitations) and [runtime dependencies](https://github.com/woleet/woleet-weblibs#runtime-dependencies).
 
-## Installation using npm
+## Installation
 
 You can use npm to add Woleet web libraries to your project:
 
