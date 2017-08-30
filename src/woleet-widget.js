@@ -116,7 +116,7 @@
         head.logo = $touch('div', 'woleet-logo');
 
         head.x = $touch('div', 'floatright');
-        head.x.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop receipt');
+        head.x.receipt = $touch('button', ['receipt-button', 'clickable']).on('click', forceReceipt).text('Drop proof');
         head.x.reset = $touch('div', ['reset', 'mini-button', 'clickable']).on('click', reset);
         head.x.cancel = $touch('div', ['cancel', 'mini-button', 'clickable']).on('click', cancelHash);
 
@@ -274,7 +274,7 @@
             foot.hide();
             state.state = 'needReceipt';
             setVue('need-receipt');
-            dropZone.inputContainer.mainTextZone.text('Drop file\'s receipt');
+            dropZone.inputContainer.mainTextZone.text('Drop the proof receipt');
             dropZone.inputContainer.subTextZone.clear();
         }
 
@@ -285,40 +285,40 @@
             const detail = {};
             switch (err) {
                 case 'need-receipt':
-                    detail.main = 'No receipt found for this file';
-                    detail.sub = 'No public receipt found on Woleet: you must provide one to verify this file';
+                    detail.main = 'No public proof found at Woleet';
+                    detail.sub = 'No public proof receipt found at Woleet: you must provide one to verify this file';
                     break;
                 case 'file_matched_but_anchor_not_yet_processed':
-                    detail.main = 'The receipt is not yet provable';
-                    detail.sub = 'A receipt has been found on Woleet, but is not yet provable (try again later)';
+                    detail.main = 'The proof is not yet verifiable';
+                    detail.sub = 'A public proof receipt has been found at Woleet, but is not yet verifiable (try again later)';
                     break;
                 case 'target_hash_mismatch':
-                    detail.main = 'The receipt mismatch the file';
-                    detail.sub = 'The receipt\'s target_hash attribute doesn\'t match the file hash';
+                    detail.main = 'The proof mismatch the file';
+                    detail.sub = 'The proof receipt\'s target_hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
-                    detail.main = 'The receipt cannot be parsed';
-                    detail.sub = 'The file you provided doesn\'t look like a receipt';
+                    detail.main = 'The proof cannot be parsed';
+                    detail.sub = 'The file you provided is not a valid Chainpoint 1.x proof receipt';
                     break;
                 case 'merkle_root_mismatch':
-                    detail.main = 'The receipt is corrupted';
-                    detail.sub = 'The receipt\'s merkle_root attribute does not match the proof result';
+                    detail.main = 'The proof is corrupted';
+                    detail.sub = 'The proof receipt\'s merkle_root attribute does not match the proof result';
                     break;
                 case 'non_sha256_target_proof_element':
-                    detail.main = 'The receipt is corrupted';
+                    detail.main = 'The proof is corrupted';
                     detail.sub = 'An attribute in the proof (parent or left or right) in not a SHA256 hash';
                     break;
                 case 'invalid_parent_in_proof_element':
-                    detail.main = 'The receipt is corrupted';
+                    detail.main = 'The proof is corrupted';
                     detail.sub = 'A parent in the proof is not the SHA256 of its children';
                     break;
                 case 'invalid_receipt_format':
-                    detail.main = 'The receipt is corrupted';
-                    detail.sub = 'The receipt does not conform to the Chainpoint 1.x format';
+                    detail.main = 'The proof is corrupted';
+                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1.x format';
                     break;
                 case 'invalid_target_proof':
-                    detail.main = 'The receipt is corrupted';
-                    detail.sub = 'The receipt\'s merkle_proof attribute is missing an attribute';
+                    detail.main = 'The proof is corrupted';
+                    detail.sub = 'The proof receipt\'s merkle_proof attribute is missing an attribute';
                     break;
                 case 'op_return_mismatches_merkle_root':
                     detail.main = 'The receipt is corrupted';
@@ -330,15 +330,15 @@
                     break;
                 case 'tx_not_found':
                     detail.main = 'The transaction cannot be found';
-                    detail.sub = 'The receipt\'s transaction doesn\'t exist in the blockchain';
+                    detail.sub = 'The proof receipt\'s transaction doesn\'t exist in the blockchain';
                     break;
                 case 'invalid_receipt_signature':
                     detail.main = 'The signature is invalid';
-                    detail.sub = 'The receipt\'s signature is not valid for signedHash and pubKey attributes';
+                    detail.sub = 'The proof receipt\'s signature is not valid for signedHash and pubKey attributes';
                     break;
                 case 'invalid_receipt_signature_format':
                     detail.main = 'The signature is corrupted';
-                    detail.sub = 'The receipt does not conform to the Chainpoint 1.x format with signature extension';
+                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1.x format with signature extension';
                     break;
                 default:
                     console.trace('unexpected case', err);
@@ -435,8 +435,8 @@
                     hashZone.hide();
                     head.x.cancel.hide();
                     head.x.receipt.hide();
-                    dropZone.inputContainer.mainTextZone.text('No receipt found for this file');
-                    dropZone.inputContainer.subTextZone.text('Drop a receipt');
+                    dropZone.inputContainer.mainTextZone.text('No public proof found at Woleet');
+                    dropZone.inputContainer.subTextZone.text('Please provide a proof receipt');
                     head.x.reset.show();
                     break;
                 case 'error':
