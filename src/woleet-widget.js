@@ -294,15 +294,15 @@
                     break;
                 case 'target_hash_mismatch':
                     detail.main = 'The proof mismatch the file';
-                    detail.sub = 'The proof receipt\'s target_hash attribute doesn\'t match the file hash';
+                    detail.sub = 'The proof receipt\'s target hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
                     detail.main = 'The proof cannot be parsed';
-                    detail.sub = 'The file you provided is not a valid Chainpoint 1.x proof receipt';
+                    detail.sub = 'The file you provided is not a valid Chainpoint 1 or 2 proof receipt';
                     break;
                 case 'merkle_root_mismatch':
                     detail.main = 'The proof is corrupted';
-                    detail.sub = 'The proof receipt\'s merkle_root attribute does not match the proof result';
+                    detail.sub = 'The proof receipt\'s merkle root attribute does not match the proof result';
                     break;
                 case 'non_sha256_target_proof_element':
                     detail.main = 'The proof is corrupted';
@@ -314,15 +314,15 @@
                     break;
                 case 'invalid_receipt_format':
                     detail.main = 'The proof is corrupted';
-                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1.x format';
+                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1 or 2 format';
                     break;
                 case 'invalid_target_proof':
                     detail.main = 'The proof is corrupted';
-                    detail.sub = 'The proof receipt\'s merkle_proof attribute is missing an attribute';
+                    detail.sub = 'The proof receipt\'s merkle proof attribute is invalid';
                     break;
                 case 'op_return_mismatches_merkle_root':
                     detail.main = 'The receipt is corrupted';
-                    detail.sub = 'The transaction\'s OP_RETURN mismatches the receipt\'s merkle_root';
+                    detail.sub = 'The transaction\'s OP_RETURN mismatches the proof receipt\'s merkle root';
                     break;
                 case 'http_error':
                     detail.main = 'Unexpected HTTP error';
@@ -338,7 +338,7 @@
                     break;
                 case 'invalid_receipt_signature_format':
                     detail.main = 'The signature is corrupted';
-                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1.x format with signature extension';
+                    detail.sub = 'The proof receipt does not conform to the Chainpoint 1 or 2 format with signature extension';
                     break;
                 default:
                     console.trace('unexpected case', err);
