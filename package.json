@@ -1,6 +1,6 @@
 {
   "name": "woleet-widget",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "private": false,
   "devDependencies": {
     "babel-preset-latest": "^6.22.0",
@@ -22,7 +22,7 @@
     "example": "examples"
   },
   "dependencies": {
-    "woleet-weblibs": "^0.4.0"
+    "woleet-weblibs": "^0.4.4"
   },
   "repository": {
     "type": "git",

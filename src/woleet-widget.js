@@ -218,7 +218,7 @@
             // We need a receipt to verify the hash|file
             if (state.state === 'needReceipt') {
                 setVue('pending');
-                parseReceiptFile(file)
+                return parseReceiptFile(file)
                     .then((receipt) => woleet.verify.DAB(state.hash, receipt, setProgress))
                     .then((res) => {
                         if (res.code !== 'verified') throw new Error(res.code);
@@ -237,19 +237,22 @@
 
                 if (typeof file === 'string') {
                     state.hash = file;
-                    woleetDAB(state.hash);
+                    return woleetDAB(state.hash);
                 } else {
-                    hasher.start(file);
-                    hasher.on('progress', setProgress);
-                    hasher.on('result', (r) => {
-                        state.hash = r.result;
-                        woleetDAB(state.hash);
-                        setProgress({progress: 0});
+                    return new Promise((resolve, reject) => {
+                        hasher.start(file);
+                        hasher.on('progress', setProgress);
+                        hasher.on('result', (r) => {
+                            state.hash = r.result;
+                            setProgress({progress: 0});
+                            console.log('r.result', r.result);
+                            resolve(woleetDAB(state.hash));
+                        })
                     })
                 }
 
                 function woleetDAB(hash) {
-                    woleet.verify.WoleetDAB(hash, setProgress)
+                    return woleet.verify.WoleetDAB(hash, setProgress)
                         .then((results) => {
                             state.state = 'done';
                             addResults(results.sort((b, a) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0));
@@ -515,16 +518,35 @@
 
         function reset() {
             setVue('init');
+            hasher.cancel();
             state.hash = null;
             state.state = 'initial'
         }
 
         function cancelHash() {
-            hasher.cancel();
             reset();
         }
 
-        return widget.toDom()
+        this.setInputFile = (file) => {
+            if(state.state === 'needReceipt')
+                throw new Error('Current state is needReceipt');
+            const ctx = {files: [file]};
+            return setInputFile.call(ctx);
+        };
+
+        this.setReceipt = (file) => {
+            forceReceipt();
+            if(state.state !== 'needReceipt')
+                throw new Error('Current state must be needReceipt');
+            const ctx = {files: [file]};
+            return setInputFile.call(ctx);
+        };
+
+        this.reset = reset;
+
+        this.cancelHash = cancelHash;
+
+        this.toDom = () => widget.toDom();
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -532,7 +554,8 @@
         for (let i = 0; i < widgets.length; i++) {
             let e = widgets[i];
             let hash = e.getAttribute("data-hash");
-            e.appendChild(new Widget(hash));
+            const widget = new Widget(hash);
+            e.appendChild(widget.toDom());
         }
     });
 
