@@ -2,8 +2,8 @@
 
 This repository contains the sources code of **Woleet verification widget**.
 This web widget can be easily embedded into any web application to:
-- **verify** the **existence** and get the **timestamp** of a **file** anchored in the Bitcoin blockchain using any [Chainpoint 1.x](http://www.chainpoint.org/#v1x) compatible tool.</li>
-- **verify** the **existence**, the **validity** and get the **timestamp** of a **signature** anchored in the Bitcoin blockchain using Woleet's <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to [Chainpoint 1.x](http://www.chainpoint.org/#v1x) (the signee identity is also verified if provided)</li>
+- **verify** the **existence** and get the **timestamp** of a **file** anchored in the Bitcoin blockchain using any [Chainpoint 1 or 2](http://www.chainpoint.org) compatible tool.</li>
+- **verify** the **existence**, the **validity** and get the **timestamp** of a **signature** anchored in the Bitcoin blockchain using Woleet's <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to [Chainpoint 1 or 2](http://www.chainpoint.org/) (the signee identity is also verified if provided)</li>
 
 # Building Woleet verification widget
 
