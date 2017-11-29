@@ -3,7 +3,7 @@
   "version": "0.5.4",
   "private": false,
   "devDependencies": {
-    "babel-preset-latest": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-less": "^3.3.0",
@@ -22,7 +22,7 @@
     "example": "examples"
   },
   "dependencies": {
-    "woleet-weblibs": "^0.4.4"
+    "woleet-weblibs": "^0.4.5"
   },
   "repository": {
     "type": "git",
