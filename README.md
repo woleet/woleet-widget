@@ -33,17 +33,17 @@ npm i woleet-widget
 To use the Woleet verification widget you have to include the following components:
 
 ```html
-<link href="./node_modules/woleet-widget/dist/style.css" rel="stylesheet">
-<script src="./node_modules/woleet-widget/dist/woleet-widget.js"></script>
-<script src="./node_modules/woleet-weblibs/dist/woleet-weblibs.js"></script>
+<link href="./node_modules/@woleet/woleet-widget/dist/style.css" rel="stylesheet">
+<script src="./node_modules/@woleet/woleet-widget/dist/woleet-widget.js"></script>
+<script src="./node_modules/@woleet/woleet-weblibs/dist/woleet-weblibs.js"></script>
 ```
 
 or their minimized equivalent:
 
 ```html
-<link href="./node_modules/woleet-widget/dist/style.css" rel="stylesheet">
-<script src="./node_modules/woleet-widget/dist/woleet-widget.min.js"></script>
-<script src="./node_modules/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
+<link href="./node_modules/@woleet/woleet-widget/dist/style.css" rel="stylesheet">
+<script src="./node_modules/@woleet/woleet-widget/dist/woleet-widget.min.js"></script>
+<script src="./node_modules/@woleet/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
 ```
 
 ## Basic usage
