@@ -242,6 +242,7 @@
                     return new Promise((resolve, reject) => {
                         hasher.start(file);
                         hasher.on('progress', setProgress);
+                        hasher.on('error', (err) => setVue('error', err.error || err.message));
                         hasher.on('result', (r) => {
                             state.hash = r.result;
                             setProgress({progress: 0});
@@ -342,6 +343,10 @@
                 case 'invalid_receipt_signature_format':
                     detail.main = 'The signature is corrupted';
                     detail.sub = 'The proof receipt does not conform to the Chainpoint 1 or 2 format with signature extension';
+                    break;
+                case 'file_too_big_to_be_hashed_without_worker':
+                    detail.main = 'Cannot hash without worker';
+                    detail.sub = 'The file is too big to ba hashed without worker';
                     break;
                 default:
                     console.trace('unexpected case', err);
