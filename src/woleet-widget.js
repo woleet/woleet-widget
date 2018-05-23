@@ -346,7 +346,7 @@
                     break;
                 case 'file_too_big_to_be_hashed_without_worker':
                     detail.main = 'Cannot hash without worker';
-                    detail.sub = 'The file is too big to ba hashed without worker';
+                    detail.sub = 'The file is too big to be hashed without worker';
                     break;
                 default:
                     console.trace('unexpected case', err);
