@@ -8,8 +8,7 @@ This web widget can be easily embedded into any web application to:
 # Building Woleet verification widget
 
 Type `./build.sh` on the project's root to:
-- install build tools into the `./node_modules/` directory
-- install runtime dependencies into the `./node_modules/` directory
+- install build tools and runtime dependencies into the `./node_modules/` directory
 - build the libraries into the `./dist/`directory
 
 # Using Woleet verification widget
