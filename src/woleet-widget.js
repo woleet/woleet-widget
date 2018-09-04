@@ -221,8 +221,10 @@
                 return parseReceiptFile(file)
                     .then((receipt) => woleet.verify.DAB(state.hash, receipt, setProgress))
                     .then((res) => {
-                        if (res.code !== 'verified') throw new Error(res.code);
-                        setVue('woleet-ok', res);
+                        if (res.code !== 'verified') {
+                            throw new Error(res.code);
+                        }
+                        setVue('ok', res);
                         state.state = 'done';
                     })
                     .catch((err) => {
@@ -368,10 +370,12 @@
                 }
 
                 results.forEach((res, i) => {
-                    if (res.code === 'verified')
-                        addVue('woleet-ok', res, i);
-                    else
+                    if (res.code === 'verified') {
+                        addVue('ok', res, i);
+                    }
+                    else {
                         addVue('error', res.code, i);
+                    }
                 });
                 infoZone.toDom();
             }
@@ -389,29 +393,37 @@
             hashZone.hide();
             head.x.cancel.hide();
             switch (vue) {
-                case 'woleet-ok':
-                    const s = message.receipt.signature;
-                    const i = message.identityVerificationStatus;
-                    const pubKey = s ? s.pubKey : null;
-                    const date = formatDate(message.timestamp).split(' ');
-                    const timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
-                    item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
-                    item.subTextZone.text('at ' + date[1] + ' ' + timeZone);
-                    if (s && s.identityURL && i && i.code === 'verified') {
-                        item.byTextZone.addClass('link');
-                        item.signTextZone.link(s.identityURL);
-                        item.byTextZone.show();
+                case 'ok':
+                    const sig = message.receipt.signature;
+                    const idStatus = message.identityVerificationStatus;
+                    const pubKey = sig ? sig.pubKey : null;
+
+                    // confirmations may be undefined if tx is sent but not in a block
+                    if (!message.confirmations) {
+                        item.mainTextZone.text(pubKey ? 'Signed' : 'Timestamped');
+                        item.subTextZone.text('Yet to be included in a block.');
+                    } else {
+                        const date = formatDate(message.timestamp).split(' ');
+                        const timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
+                        item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
+                        item.subTextZone.text('at ' + date[1] + ' ' + timeZone);
                     }
-                    else if (pubKey) {
+
+                    if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
+                        item.byTextZone.addClass('link');
+                        item.signTextZone.link(sig.identityURL);
+                        item.byTextZone.show();
+                    } else if (pubKey) {
                         item.signTextZone.text(`${pubKey}`);
                         item.byTextZone.show();
                     } else {
                         item.byTextZone.hide();
                     }
 
-                    if (i && i.code && i.code !== 'verified') {
-                        item.warnTextZone.text(`Cannot validate identity (${i.code})`)
+                    if (idStatus && idStatus.code && idStatus.code !== 'verified') {
+                        item.warnTextZone.text(`Cannot validate identity (${idStatus.code})`)
                     }
+
                     item.addClass('validated');
                     dropZone.attr('disabled', true);
                     head.x.receipt.show();
@@ -431,9 +443,9 @@
 
         function setVue(vue, message) {
             switch (vue) {
-                case 'woleet-ok':
+                case 'ok':
                     resetText();
-                    addVue('woleet-ok', message, 0);
+                    addVue('ok', message, 0);
                     infoZone.toDom();
                     break;
                 case 'need-receipt':
@@ -533,7 +545,7 @@
         }
 
         this.setInputFile = (file) => {
-            if(state.state === 'needReceipt')
+            if (state.state === 'needReceipt')
                 throw new Error('Current state is needReceipt');
             const ctx = {files: [file]};
             return setInputFile.call(ctx);
@@ -541,7 +553,7 @@
 
         this.setReceipt = (file) => {
             forceReceipt();
-            if(state.state !== 'needReceipt')
+            if (state.state !== 'needReceipt')
                 throw new Error('Current state must be needReceipt');
             const ctx = {files: [file]};
             return setInputFile.call(ctx);
