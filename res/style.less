@@ -24,14 +24,10 @@
 @progress_transition: width .6s ease;
 @progress_animation: progress-bar-stripes 2s linear infinite;
 
-@cancel_button_inset_rule: inset 0 0 0 2px @color2;
-
 .woleet-widget {
-
   .widget {
-
     background-color: @background2;
-    border-radius: 20px;
+    border-radius: 4px;
     border: 3px solid @background2;
     width: 330px;
     color: #000;
@@ -46,17 +42,13 @@
 
     > div {
       background: @background1;
-      border-radius: 0 0 17px 17px;
+      border-radius: 4px;
       padding: 5px;
     }
 
     > .head {
       background: @background2;
       height: 25px;
-      line-height: 25px;
-      border-radius: 17px;
-      box-sizing: content-box;
-      -webkit-box-sizing: content-box;
 
       .floatright {
         float: right;
@@ -90,10 +82,8 @@
         display: block;
         padding: 5px 10px;
         line-height: initial;
-        box-shadow: 0 2px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 0.75);
 
         &:active {
-          box-shadow: 0 1px 0 rgba(@button_color_r, @button_color_g, @button_color_b, 1);
           position: relative;
           top: 1px;
         }
@@ -110,9 +100,6 @@
       .mini-button.cancel {
         background: data-uri(@invalid_icon) no-repeat, #fff;
         border-radius: 50%;
-        -webkit-box-shadow: @cancel_button_inset_rule;
-        -moz-box-shadow: @cancel_button_inset_rule;
-        box-shadow: @cancel_button_inset_rule;
       }
     }
 
@@ -167,7 +154,7 @@
       }
 
       .dropZoneContainer {
-        border-radius: 1em;
+        border-radius: 4px;
         border: 2px dashed;
         color: #999;
         height: 49px;
@@ -244,7 +231,7 @@
           width: 100%;
           margin: 15px 0 10px 0;
           height: 1em;
-          border-radius: 5px;
+          border-radius: 4px;
           background: #e4e4e4;
 
           .progressBar {
@@ -256,7 +243,7 @@
             background-size: @progress_background_size;
             transition: @progress_transition;
             margin: 15px 0;
-            border-radius: 5px;
+            border-radius: 4px;
           }
         }
       }
@@ -277,7 +264,7 @@
         height: 30px;
         background: @background2;
         width: 45px;
-        border-radius: 40px 0 20px 0;
+        border-radius: 64px 0 0 0;
         margin-top: -27px;
         line-height: 28px;
         text-align: right;
