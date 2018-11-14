@@ -3,7 +3,7 @@
 
 @color2: #f05228;
 
-@default_height: 85px;
+@default_height: 64px;
 
 @button_color_r: 128;
 @button_color_g: 187;
@@ -118,7 +118,6 @@
         height: initial;
         .infoZone {
           .infoZoneItem {
-
             &:first-child {
               border-top: none;
             }
@@ -131,15 +130,11 @@
               display: block;
               padding: 5px 0;
               background-origin: content-box;
-              background-position-x: 30px;
+              background-position-x: 20px;
 
               > .text {
                 text-align: left;
-                margin-left: 80px;
-                padding: 0 5px;
-                &.small {
-                  padding: 5px 0 0 5px;
-                }
+                padding-left: @default_height;
               }
             }
           }
@@ -157,7 +152,7 @@
         border-radius: 4px;
         border: 2px dashed;
         color: #999;
-        height: 49px;
+        height: 28px;
         overflow: hidden;
         padding: 1em 0;
         text-align: center;
@@ -173,15 +168,10 @@
 
       .infoZone {
         .infoZoneItem {
-
           transition: @height_transition;
 
           > .text {
             transition: @padding_transition;
-
-            &:first-child {
-              white-space: nowrap;
-            }
           }
 
           &.validated {
@@ -193,15 +183,13 @@
           }
 
           &.expanded {
-            height: 83px;
+            height: @default_height;
             display: block;
             padding: 5px 0;
             background-origin: content-box;
 
             > .text {
-              padding-left: 70px;
-              text-align: initial;
-              margin-left: 15px;
+              padding-left: @default_height;
             }
 
             > a {
@@ -210,12 +198,6 @@
             }
           }
 
-          &.expanded {
-            height: 83px;
-            display: block;
-            padding: 5px 0;
-            background-origin: content-box;
-          }
           display: none;
         }
       }
@@ -285,18 +267,20 @@
 
     .text {
       color: #333;
-      padding: 5px 5px 0 5px;
-      &.small {
-        font-size: small;
-      }
-      &.x-small {
-        font-size: xx-small;
-        white-space: nowrap;
-      }
-      &.warn {
-        font-size: x-small;
-        color: @color2;
-      }
+      font-size: medium;
+    }
+
+    .small {
+      font-size: small;
+    }
+
+    .x-small {
+      font-size: x-small;
+      white-space: nowrap;
+    }
+
+    .warn {
+      color: @color2;
     }
 
     .clickable {

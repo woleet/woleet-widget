@@ -131,10 +131,10 @@
         infoZone.items = [];
         defineProperty(infoZone)('addItem', function () {
             const item = $touch('div', 'infoZoneItem');
-            item.mainTextZone = $touch('div', 'text');
+            item.mainTextZone = $touch('div', ['text', 'small']);
             item.subTextZone = $touch('div', ['text', 'small']);
-            item.byTextZone = $touch('span', ['text', 'x-small']).text('by');
-            item.signTextZone = $touch('a', ['text', 'x-small']);
+            item.byTextZone = $touch('span', ['text', 'x-small']).text('by ');
+            item.signTextZone = $touch('a', ['link', 'x-small']);
             item.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
             item.on('click', () => selectItem(item, this.items));
             this.items.push(item);
@@ -148,7 +148,7 @@
 
         const dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
         dropZone.inputContainer = $touch('div');
-        dropZone.inputContainer.mainTextZone = $touch('div', 'text');
+        dropZone.inputContainer.mainTextZone = $touch('div', ['text', 'small']);
         dropZone.inputContainer.subTextZone = $touch('div', ['text', 'small']);
         dropZone.inputContainer.input = $touch('input', ['dropZone', 'clickable']).attr('type', 'file').on('change', setInputFile);
 
@@ -183,15 +183,8 @@
          * @param {Date} date
          */
         function formatDate(date) {
-            let day, month, year, hour, minutes;
-
-            day = date.getDate();
-            month = date.getMonth();
-            year = date.getFullYear();
-            hour = date.getHours();
-            minutes = date.getMinutes();
-
-            return [day, month + 1, year].join('/') + ' ' + [hour, minutes].join(':');
+            let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+            return date.toLocaleDateString('en', options)
         }
 
         const hasher = new woleet.file.Hasher;
@@ -398,15 +391,13 @@
                     const idStatus = message.identityVerificationStatus;
                     const pubKey = sig ? sig.pubKey : null;
 
-                    // confirmations may be undefined if tx is sent but not in a block
+                    // Confirmations may be undefined if tx is sent but not yet included in a block
                     if (!message.confirmations) {
                         item.mainTextZone.text(pubKey ? 'Signed' : 'Timestamped');
                         item.subTextZone.text('Yet to be included in a block.');
                     } else {
-                        const date = formatDate(message.timestamp).split(' ');
-                        const timeZone = /.*(GMT.*\)).*/.exec(message.timestamp.toString())[1];
-                        item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date[0]}`);
-                        item.subTextZone.text('at ' + date[1] + ' ' + timeZone);
+                        const date = formatDate(message.timestamp);
+                        item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date}`);
                     }
 
                     if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
@@ -421,7 +412,7 @@
                     }
 
                     if (idStatus && idStatus.code && idStatus.code !== 'verified') {
-                        item.warnTextZone.text(`Cannot validate identity (${idStatus.code})`)
+                        item.warnTextZone.text(`Cannot verify identity (${idStatus.code})`)
                     }
 
                     item.addClass('validated');
@@ -501,7 +492,7 @@
             if (!expanded) return;
 
             if (selected === item) {
-                //clicked on item for the second time
+                // Clicked on item for the second time
                 return expandList();
             }
 
