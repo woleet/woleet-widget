@@ -29,6 +29,7 @@
 .woleet-widget {
 
   .widget {
+
     background-color: @background2;
     border-radius: 20px;
     border: 3px solid @background2;
@@ -36,11 +37,13 @@
     color: #000;
     text-decoration: none;
     line-height: 1em;
+    font-family: sans-serif !important;
     font-weight: normal;
     padding: 0;
     margin: 0;
     box-sizing: content-box;
     -webkit-box-sizing: content-box;
+
     > div {
       background: @background1;
       border-radius: 0 0 17px 17px;
@@ -80,7 +83,6 @@
         float: left;
         color: #fff;
         white-space: nowrap;
-        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
         font-size: x-small;
         background: rgb(@button_color_r, @button_color_g, @button_color_b);
         border: none;
@@ -115,7 +117,6 @@
     }
 
     > .body {
-      font-family: sans-serif;
       height: @default_height;
       box-sizing: content-box;
       -webkit-box-sizing: content-box;
@@ -280,7 +281,7 @@
         margin-top: -27px;
         line-height: 28px;
         text-align: right;
-        font-size: large;
+        font-size: medium;
         padding: 1px 5px;
         color: @background1;
       }
@@ -296,7 +297,6 @@
     }
 
     .text {
-      font-family: sans-serif;
       color: #333;
       padding: 5px 5px 0 5px;
       &.small {
@@ -305,7 +305,6 @@
       &.x-small {
         font-size: xx-small;
         white-space: nowrap;
-        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
       }
       &.warn {
         font-size: x-small;
