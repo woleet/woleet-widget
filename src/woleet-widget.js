@@ -135,6 +135,7 @@
             item.subTextZone = $touch('div', ['text', 'small']);
             item.byTextZone = $touch('span', ['text', 'x-small']).text('by ');
             item.signTextZone = $touch('a', ['link', 'x-small']);
+            item.identityTextZone = $touch('div', ['text', 'x-small']);
             item.warnTextZone = $touch('div', ['text', 'x-small', 'warn']);
             item.on('click', () => selectItem(item, this.items));
             this.items.push(item);
@@ -389,6 +390,7 @@
                 case 'ok':
                     const sig = message.receipt.signature;
                     const idStatus = message.identityVerificationStatus;
+                    const identity = idStatus ? idStatus.identity : null;
                     const pubKey = sig ? sig.pubKey : null;
 
                     // Confirmations may be undefined if tx is sent but not yet included in a block
@@ -402,7 +404,13 @@
 
                     if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
                         item.byTextZone.addClass('link');
-                        item.signTextZone.link(sig.identityURL);
+                        if(identity && identity.commonName) {
+                            item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
+                            item.signTextZone.text(`${identity.commonName}`);
+                            item.identityTextZone.html(`${identity.organization} - ${identity.organizationalUnit}<br>${identity.locality} - ${identity.country}`);
+                        } else {
+                            item.signTextZone.link(sig.identityURL);
+                        }
                         item.byTextZone.show();
                     } else if (pubKey) {
                         item.signTextZone.text(`${pubKey}`);
