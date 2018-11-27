@@ -404,12 +404,12 @@
 
                     if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
                         item.byTextZone.addClass('link');
-                        if(identity && identity.commonName) {
-                            item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
+                        item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
+                        if (identity && identity.commonName) {
                             item.signTextZone.text(`${identity.commonName}`);
                             item.identityTextZone.html(`${identity.organization} - ${identity.organizationalUnit}<br>${identity.locality} - ${identity.country}`);
                         } else {
-                            item.signTextZone.link(sig.identityURL);
+                            item.signTextZone.text(`${sig.identityURL}`);
                         }
                         item.byTextZone.show();
                     } else if (pubKey) {
