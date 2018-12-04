@@ -1,6 +1,6 @@
 {
   "name": "@woleet/woleet-widget",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": false,
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
