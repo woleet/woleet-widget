@@ -38,7 +38,6 @@
     padding: 0;
     margin: 0;
     box-sizing: content-box;
-    -webkit-box-sizing: content-box;
 
     > div {
       background: @background1;
@@ -49,6 +48,7 @@
     > .head {
       background: @background2;
       height: 25px;
+      box-sizing: content-box;
 
       .floatright {
         float: right;
@@ -106,11 +106,9 @@
     > .body {
       height: @default_height;
       box-sizing: content-box;
-      -webkit-box-sizing: content-box;
+      font-size: medium;
 
       * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
 
@@ -145,7 +143,6 @@
         animation: fly .5s ease;
         transform-origin: center;
         box-sizing: content-box;
-        -webkit-box-sizing: content-box;
       }
 
       .dropZoneContainer {
@@ -237,8 +234,6 @@
       border-radius: 0;
 
       * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
 
