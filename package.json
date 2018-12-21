@@ -22,7 +22,7 @@
     "example": "examples"
   },
   "dependencies": {
-    "@woleet/woleet-weblibs": "^0.6.2"
+    "@woleet/woleet-weblibs": "^0.6.3"
   },
   "repository": {
     "type": "git",

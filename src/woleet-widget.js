@@ -203,7 +203,7 @@
 
             const setProgress = (e) => {
                 let p = (e.progress * 100);
-                if (Number.isNaN(p)) p = 0;
+                if (p !== p) p = 0;
                 p = p.toFixed(0);
                 progressBar.style({width: p + '%'});
                 hashZone.percentage.text('Hashing... ' + p + '%')
