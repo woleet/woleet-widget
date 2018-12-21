@@ -17,7 +17,7 @@ gulp.task('less', function () {
 gulp.task("uglifyWidget", () => {
     return gulp.src(['src/woleet-widget.js'])
         .pipe(sourcemaps.init())
-        .pipe(babel({presets: ['env']}))
+        .pipe(babel())
         .pipe(gulp.dest("./dist/"))
         .pipe(uglify())
         .pipe(rename("woleet-widget.min.js"))

@@ -21,7 +21,15 @@
   "directories": {
     "example": "examples"
   },
+  "babel": {
+    "presets": [
+      [
+        "env"
+      ]
+    ]
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.2.3",
     "@woleet/woleet-weblibs": "^0.6.3"
   },
   "repository": {
@@ -37,5 +45,9 @@
     "bitcoin"
   ],
   "author": "Woleet",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woleet/woleet-widget/issues"
+  },
+  "homepage": "https://github.com/woleet/woleet-widget#readme"
 }
