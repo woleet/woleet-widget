@@ -293,7 +293,7 @@
                     detail.sub = 'A public proof receipt has been found at Woleet, but is not yet verifiable (try again later)';
                     break;
                 case 'target_hash_mismatch':
-                    detail.main = 'The proof mismatch the file';
+                    detail.main = 'The proof mismatches the file';
                     detail.sub = 'The proof receipt\'s target hash attribute doesn\'t match the file hash';
                     break;
                 case 'unable_to_parse_json':
