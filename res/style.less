@@ -10,9 +10,9 @@
 @button_color_b: 60;
 
 @logo_icon: logo.svg;
-@info_icon: information.svg;
-@checked_icon: checked.svg;
-@invalid_icon: invalid.svg;
+@ok_icon: ok.svg;
+@info_icon: info.svg;
+@error_icon: error.svg;
 @refresh_icon: refresh.svg;
 @arrow_up_icon: arrow_up.svg;
 
@@ -32,7 +32,6 @@
     width: 330px;
     color: #000;
     text-decoration: none;
-    line-height: 1em;
     font-family: sans-serif !important;
     font-weight: normal;
     padding: 0;
@@ -97,7 +96,7 @@
       }
 
       .mini-button.cancel {
-        background: data-uri(@invalid_icon) no-repeat, #fff;
+        background: data-uri(@error_icon) no-repeat, #fff;
         border-radius: 50%;
       }
     }
@@ -171,12 +170,16 @@
             transition: @padding_transition;
           }
 
-          &.validated {
-            background: data-uri(@checked_icon) no-repeat;
+          &.ok {
+            background: data-uri(@ok_icon) no-repeat;
+          }
+
+          &.info {
+            background: data-uri(@info_icon) no-repeat;
           }
 
           &.error {
-            background: data-uri(@invalid_icon) no-repeat;
+            background: data-uri(@error_icon) no-repeat;
           }
 
           &.expanded {
@@ -271,7 +274,6 @@
 
     .x-small {
       font-size: x-small;
-      white-space: nowrap;
     }
 
     .warn {

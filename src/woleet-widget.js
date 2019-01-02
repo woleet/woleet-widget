@@ -132,7 +132,7 @@
         defineProperty(infoZone)('addItem', function () {
             const item = $touch('div', 'infoZoneItem');
             item.mainTextZone = $touch('div', ['text', 'small']);
-            item.subTextZone = $touch('div', ['text', 'small']);
+            item.subTextZone = $touch('div', ['text', 'x-small']);
             item.byTextZone = $touch('span', ['text', 'x-small']).text('by ');
             item.signTextZone = $touch('a', ['link', 'x-small']);
             item.identityTextZone = $touch('div', ['text', 'x-small']);
@@ -150,7 +150,7 @@
         const dropZone = body.dropZone = $touch('div', 'dropZoneContainer');
         dropZone.inputContainer = $touch('div');
         dropZone.inputContainer.mainTextZone = $touch('div', ['text', 'small']);
-        dropZone.inputContainer.subTextZone = $touch('div', ['text', 'small']);
+        dropZone.inputContainer.subTextZone = $touch('div', ['text', 'x-small']);
         dropZone.inputContainer.input = $touch('input', ['dropZone', 'clickable']).attr('type', 'file').on('change', setInputFile);
 
         const foot = widget.foot = $touch('div', 'foot');
@@ -164,7 +164,7 @@
         function init() {
             resetText();
             dropZone.inputContainer.mainTextZone.text('Drop the file to verify');
-            infoZone.removeClass(['validated', 'error']);
+            infoZone.removeClass(['ok', 'error', 'info']);
             infoZone.hide();
             dropZone.show();
             hashZone.hide();
@@ -278,12 +278,9 @@
             dropZone.inputContainer.subTextZone.clear();
         }
 
-        function getErrorMessage(err) {
-            if (err instanceof Error) {
-                err = err.message;
-            }
+        function getDetailedMessage(error) {
             const detail = {};
-            switch (err) {
+            switch (error) {
                 case 'need-receipt':
                     detail.main = 'No public proof found at Woleet';
                     detail.sub = 'No public proof receipt found at Woleet: you must provide one to verify this file';
@@ -347,7 +344,7 @@
                 default:
                     console.trace('unexpected case', err);
                     detail.main = err;
-                    detail.sub = 'unexpected case';
+                    detail.sub = 'Unexpected case';
                     break;
             }
             return detail;
@@ -392,16 +389,16 @@
                     const idStatus = message.identityVerificationStatus;
                     const identity = idStatus ? idStatus.identity : null;
                     const pubKey = sig ? sig.pubKey : null;
-
                     // Confirmations may be undefined if tx is sent but not yet included in a block
                     if (!message.confirmations) {
-                        item.mainTextZone.text(pubKey ? 'Signed' : 'Timestamped');
-                        item.subTextZone.text('Yet to be included in a block.');
+                        item.mainTextZone.text('Proof not yet verifiable');
+                        item.subTextZone.text('The proof receipt\'s transaction is not yet confirmed (try again later)');
+                        item.addClass('info');
                     } else {
                         const date = formatDate(message.timestamp);
                         item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date}`);
+                        item.addClass('ok');
                     }
-
                     if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
                         item.byTextZone.addClass('link');
                         item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
@@ -418,23 +415,21 @@
                     } else {
                         item.byTextZone.hide();
                     }
-
                     if (idStatus && idStatus.code && idStatus.code !== 'verified') {
                         item.warnTextZone.text(`Cannot verify identity (${idStatus.code})`)
                     }
-
-                    item.addClass('validated');
                     dropZone.attr('disabled', true);
                     head.x.receipt.show();
                     break;
                 case 'error':
                     if (state.state === 'needReceipt') head.x.receipt.show();
-                    let detail = getErrorMessage(message);
+                    const error = (message instanceof Error) ? message.message : message;
+                    const detail = getDetailedMessage(error);
                     item.mainTextZone.text(detail.main);
                     item.subTextZone.text(detail.sub);
                     item.byTextZone.hide();
                     item.warnTextZone.hide();
-                    item.addClass('error');
+                    item.addClass(error !== 'file_matched_but_anchor_not_yet_processed' ? 'error' : 'info');
                     break;
             }
             head.x.reset.show();
