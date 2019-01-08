@@ -410,11 +410,11 @@
                             item.signTextZone.text(`${identity.commonName}`);
                             item.identityTextZone.html(
                                 `${identity.organization || ''}
-                                 ${identity.organization && identity.organizationalUnit ? ' - ' : ''} 
+                                 ${identity.organization && identity.organizationalUnit ? ' - ' : ''}
                                  ${identity.organizationalUnit || ''}
                                  <br>
                                  ${identity.locality || ''}
-                                 ${identity.locality && identity.country ? ' - ' : ''}                                  
+                                 ${identity.locality && identity.country ? ' - ' : ''}
                                  ${identity.country || ''}`);
                         } else {
                             item.signTextZone.text(`${sig.identityURL}`);
