@@ -1,5 +1,4 @@
 const gulp = require("gulp"),
-    path = require('path'),
     less = require('gulp-less'),
     babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
@@ -25,7 +24,4 @@ gulp.task("uglifyWidget", () => {
         .pipe(gulp.dest("./dist/"))
 });
 
-gulp.task('default', [
-    'uglifyWidget',
-    'less'
-]);
+gulp.task('default', gulp.parallel('uglifyWidget', 'less'));
