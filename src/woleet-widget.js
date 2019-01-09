@@ -329,6 +329,10 @@
                     detail.main = 'The transaction cannot be found';
                     detail.sub = 'The proof receipt\'s transaction doesn\'t exist in the blockchain';
                     break;
+                case 'tx_not_confirmed':
+                    detail.main = 'The transaction is not confirmed';
+                    detail.sub = 'The proof receipt\'s transaction is not yet confirmed by the blockchain';
+                    break;
                 case 'invalid_receipt_signature':
                     detail.main = 'The signature is invalid';
                     detail.sub = 'The proof receipt\'s signature is not valid for signedHash and pubKey attributes';
@@ -404,7 +408,14 @@
                         item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
                         if (identity && identity.commonName) {
                             item.signTextZone.text(`${identity.commonName}`);
-                            item.identityTextZone.html(`${identity.organization} - ${identity.organizationalUnit}<br>${identity.locality} - ${identity.country}`);
+                            item.identityTextZone.html(
+                                `${identity.organization || ''}
+                                 ${identity.organization && identity.organizationalUnit ? ' - ' : ''}
+                                 ${identity.organizationalUnit || ''}
+                                 <br>
+                                 ${identity.locality || ''}
+                                 ${identity.locality && identity.country ? ' - ' : ''}
+                                 ${identity.country || ''}`);
                         } else {
                             item.signTextZone.text(`${sig.identityURL}`);
                         }
