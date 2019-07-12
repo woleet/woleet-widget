@@ -72,9 +72,9 @@
             def('style', (props) => {
                 if (Array.isArray(props)) {
                     return props.map((p) => target.style[p])
-                }
-                else if (typeof props === 'string') return target.style[props];
-                else {
+                } else if (typeof props === 'string') {
+                    return target.style[props];
+                } else {
                     for (let prop in props) {
                         //noinspection JSUnfilteredForInLoop
                         target.style[prop] = props[prop];
@@ -346,8 +346,8 @@
                     detail.sub = 'The file is too big to be hashed without worker';
                     break;
                 default:
-                    console.trace('unexpected case', err);
-                    detail.main = err;
+                    console.trace('unexpected case', error);
+                    detail.main = error;
                     detail.sub = 'Unexpected case';
                     break;
             }
@@ -367,14 +367,12 @@
                 results.forEach((res, i) => {
                     if (res.code === 'verified') {
                         addVue('ok', res, i);
-                    }
-                    else {
+                    } else {
                         addVue('error', res.code, i);
                     }
                 });
                 infoZone.toDom();
-            }
-            else {
+            } else {
                 state.state = 'needReceipt';
                 setVue('need-receipt');
             }
@@ -393,7 +391,8 @@
                     const idStatus = message.identityVerificationStatus;
                     const identity = idStatus ? idStatus.identity : null;
                     const pubKey = sig ? sig.pubKey : null;
-                    // Confirmations may be undefined if tx is sent but not yet included in a block
+
+                    // Timestamp
                     if (!message.confirmations) {
                         item.mainTextZone.text('Proof not yet verifiable');
                         item.subTextZone.text('The proof receipt\'s transaction is not yet confirmed (try again later)');
@@ -403,7 +402,9 @@
                         item.mainTextZone.text(`${pubKey ? 'Signed' : 'Timestamped'} on ${date}`);
                         item.addClass('ok');
                     }
-                    if (sig && sig.identityURL && idStatus && idStatus.code === 'verified') {
+
+                    // Identity
+                    if (idStatus && idStatus.code === 'verified' && identity) {
                         item.byTextZone.addClass('link');
                         item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
                         if (identity && identity.commonName) {
@@ -429,6 +430,7 @@
                     if (idStatus && idStatus.code && idStatus.code !== 'verified') {
                         item.warnTextZone.text(`Cannot verify identity (${idStatus.code})`)
                     }
+
                     dropZone.attr('disabled', true);
                     head.x.receipt.show();
                     break;
