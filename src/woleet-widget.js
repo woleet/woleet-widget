@@ -335,7 +335,7 @@
                     break;
                 case 'invalid_receipt_signature':
                     detail.main = 'The signature is invalid';
-                    detail.sub = 'The proof receipt\'s signature is not valid for signedHash and pubKey attributes';
+                    detail.sub = 'The proof receipt\'s signature is not valid';
                     break;
                 case 'invalid_receipt_signature_format':
                     detail.main = 'The signature is corrupted';
@@ -388,8 +388,6 @@
             switch (vue) {
                 case 'ok':
                     const sig = message.receipt.signature;
-                    const idStatus = message.identityVerificationStatus;
-                    const identity = idStatus ? idStatus.identity : null;
                     const pubKey = sig ? sig.pubKey : null;
 
                     // Timestamp
@@ -404,6 +402,8 @@
                     }
 
                     // Identity
+                    const idStatus = message.identityVerificationStatus;
+                    const identity = idStatus ? idStatus.signedIdentity || idStatus.identity : null;
                     if (idStatus && idStatus.code === 'verified' && identity) {
                         item.byTextZone.addClass('link');
                         item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
