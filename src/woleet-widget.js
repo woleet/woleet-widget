@@ -401,10 +401,12 @@
 
           // Identity
           const idStatus = message.identityVerificationStatus;
-          const identity = idStatus ? idStatus.signedIdentity || idStatus.identity : null;
+          const identity = idStatus ? (idStatus.signedIdentity || idStatus.identity) : null;
           if (idStatus && idStatus.code === 'verified' && identity) {
             item.byTextZone.addClass('link');
-            item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`);
+            if (sig.identityURL)
+              item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`
+              + (sig.signedIdentity ? `&signedIdentity=${sig.signedIdentity}`: ''));
             if (identity && identity.commonName) {
               item.signTextZone.text(`${identity.commonName}`);
               item.identityTextZone.html(
