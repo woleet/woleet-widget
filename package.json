@@ -1,6 +1,6 @@
 {
   "name": "@woleet/woleet-widget",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -29,8 +29,8 @@
     ]
   },
   "dependencies": {
-    "@babel/polyfill": "^7.2.3",
-    "@woleet/woleet-weblibs": "^0.8.0"
+    "@babel/polyfill": "^7.2.5",
+    "@woleet/woleet-weblibs": "^0.8.1"
   },
   "repository": {
     "type": "git",
