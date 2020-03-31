@@ -405,8 +405,8 @@
           if (idStatus && idStatus.code === 'verified' && identity) {
             item.byTextZone.addClass('link');
             if (sig.identityURL)
-              item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=foobar`
-              + (sig.signedIdentity ? `&signedIdentity=${sig.signedIdentity}`: ''));
+              item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=random`
+              + (sig.signedIdentity ? `&signedIdentity=${encodeURIComponent(sig.signedIdentity)}`: ''));
             if (identity && identity.commonName) {
               item.signTextZone.text(`${identity.commonName}`);
               item.identityTextZone.html(
