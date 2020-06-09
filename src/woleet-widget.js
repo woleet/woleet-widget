@@ -401,17 +401,18 @@
 
           // Identity
           const idStatus = message.identityVerificationStatus;
-          const identity = idStatus ? (idStatus.signedIdentity || idStatus.identity) : null;
+          const identity = idStatus ? Object.assign({}, idStatus.signedIdentity, idStatus.identity) : null;
           if (idStatus && idStatus.code === 'verified' && identity) {
             item.byTextZone.addClass('link');
             if (sig.identityURL)
               item.signTextZone.link(`${sig.identityURL}?pubKey=${pubKey}&leftData=random`
-              + (sig.signedIdentity ? `&signedIdentity=${encodeURIComponent(sig.signedIdentity)}`: ''));
+                + (sig.signedIdentity ? `&signedIdentity=${encodeURIComponent(sig.signedIdentity)}` : ''));
             if (identity && identity.commonName) {
               item.signTextZone.text(`${identity.commonName}`);
               item.identityTextZone.html(
                 `${identity.organization || ''}${identity.organization && identity.organizationalUnit ? ' - ' : ''}${identity.organizationalUnit || ''}<br>
-                 ${identity.locality || ''}${identity.locality && identity.country ? ' - ' : ''}${identity.country || ''}`);
+                 ${identity.locality || ''}${identity.locality && identity.country ? ' - ' : ''}${identity.country || ''}`
+              );
             } else {
               item.signTextZone.text(`${sig.identityURL}`);
             }
