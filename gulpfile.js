@@ -1,7 +1,7 @@
 const gulp = require("gulp"),
     less = require('gulp-less'),
     babel = require('gulp-babel'),
-    uglify = require('gulp-uglify'),
+    minify = require('gulp-minify'),
     rename = require("gulp-rename"),
     sourcemaps = require('gulp-sourcemaps');
 
@@ -13,15 +13,15 @@ gulp.task('less', function () {
 });
 
 // Uglify Widget source code
-gulp.task("uglifyWidget", () => {
+gulp.task("widget", () => {
     return gulp.src(['src/woleet-widget.js'])
         .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(gulp.dest("./dist/"))
-        .pipe(uglify())
+        .pipe(minify())
         .pipe(rename("woleet-widget.min.js"))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest("./dist/"))
 });
 
-gulp.task('default', gulp.parallel('uglifyWidget', 'less'));
+gulp.task('default', gulp.parallel('widget', 'less'));
