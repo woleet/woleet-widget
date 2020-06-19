@@ -1,6 +1,6 @@
 {
   "name": "@woleet/woleet-widget",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.10.2",
