@@ -2,7 +2,6 @@ const gulp = require("gulp"),
     less = require('gulp-less'),
     babel = require('gulp-babel'),
     minify = require('gulp-minify'),
-    rename = require("gulp-rename"),
     sourcemaps = require('gulp-sourcemaps');
 
 // Generate Widget style
@@ -19,7 +18,6 @@ gulp.task("widget", () => {
         .pipe(babel())
         .pipe(gulp.dest("./dist/"))
         .pipe(minify())
-        .pipe(rename("woleet-widget.min.js"))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest("./dist/"))
 });
