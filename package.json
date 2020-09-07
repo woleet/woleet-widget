@@ -1,16 +1,16 @@
 {
   "name": "@woleet/woleet-widget",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "private": false,
   "devDependencies": {
-    "@babel/core": "^7.10.2",
+    "@babel/core": "^7.11.6",
     "babel-preset-env": "^1.7.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-less": "^4.0.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-minify": "^3.1.0",
-    "less": "^3.11.3"
+    "less": "^3.12.2"
   },
   "scripts": {
     "build": "npx gulp"
@@ -28,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.1",
-    "@woleet/woleet-weblibs": "^0.9.2"
+    "@babel/polyfill": "^7.11.5",
+    "@woleet/woleet-weblibs": "^0.10.0"
   },
   "repository": {
     "type": "git",

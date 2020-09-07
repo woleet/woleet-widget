@@ -1,0 +1,230 @@
+.woleet-widget .widget {
+  background-color: #4814ad;
+  border-radius: 5px;
+  border: 3px solid #4814ad;
+  width: 330px;
+  color: #4814ad;
+  text-decoration: none;
+  font-family: sans-serif !important;
+  font-weight: normal;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+}
+.woleet-widget .widget > div {
+  background: #f8f9fa;
+  border-radius: 4px;
+  padding: 5px;
+}
+.woleet-widget .widget > .head {
+  background: #4814ad;
+  height: 24px;
+  box-sizing: content-box;
+}
+.woleet-widget .widget > .head .floatright {
+  float: right;
+}
+.woleet-widget .widget > .head .woleet-logo {
+  float: left;
+  background-size: 100%;
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3C!--%20Generator%3A%20Adobe%20Illustrator%2023.0.4%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200)%20%20--%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20viewBox%3D%220%200%20785.2%20169.6%22%20style%3D%22enable-background%3Anew%200%200%20785.2%20169.6%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text%2Fcss%22%3E%0A%09.st0%7Bdisplay%3Anone%3B%7D%0A%09.st1%7Bdisplay%3Ainline%3Bfill%3A%234814AD%3B%7D%0A%09.st2%7Bfill%3A%23FFFFFF%3B%7D%0A%09.st3%7Bfill%3A%238C80FF%3B%7D%0A%3C%2Fstyle%3E%0A%3Cg%20id%3D%22Backgrounds%22%20class%3D%22st0%22%3E%0A%09%3Crect%20id%3D%22XMLID_612_%22%20x%3D%22-130%22%20y%3D%22-95%22%20class%3D%22st1%22%20width%3D%221088.2%22%20height%3D%22375.6%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20id%3D%22Sans_signe%22%3E%0A%3C%2Fg%3E%0A%3Cg%20id%3D%22Avec_signe%22%3E%0A%09%3Cg%20id%3D%22XMLID_596_%22%3E%0A%09%09%3Cpath%20id%3D%22XMLID_610_%22%20class%3D%22st2%22%20d%3D%22M336.4%2C54l-30.1%2C92.2h-20.1l-20.9-47.7l-20.5%2C47.7h-20.1L194.3%2C54h25.3l18.2%2C54.9l24-54.3h7%0A%09%09%09l24.8%2C54.5L311.7%2C54H336.4z%22%2F%3E%0A%09%09%3Cpath%20id%3D%22XMLID_607_%22%20class%3D%22st2%22%20d%3D%22M342%2C100.1c0-28%2C21.3-48.7%2C49.8-48.7c28.4%2C0%2C49.8%2C20.8%2C49.8%2C48.7c0%2C27.8-21.4%2C48.7-49.8%2C48.7%0A%09%09%09C363.3%2C148.8%2C342%2C127.9%2C342%2C100.1z%20M416.4%2C100.1c0-14.9-10.2-25.3-24.6-25.3c-14.4%2C0-24.6%2C10.3-24.6%2C25.3s10.2%2C25.3%2C24.6%2C25.3%0A%09%09%09C406.2%2C125.3%2C416.4%2C115%2C416.4%2C100.1z%22%2F%3E%0A%09%09%3Cpath%20id%3D%22XMLID_605_%22%20class%3D%22st2%22%20d%3D%22M459.6%2C20.8h24.9v125.4h-24.9V20.8z%22%2F%3E%0A%09%09%3Cpath%20id%3D%22XMLID_602_%22%20class%3D%22st2%22%20d%3D%22M597.5%2C107.1h-69.8c2.2%2C12.6%2C10.4%2C19.5%2C22.5%2C19.5c8.7%2C0%2C15.8-4.1%2C19.6-10.7H596%0A%09%09%09c-6.7%2C20.1-24.4%2C32.9-45.8%2C32.9c-27.2%2C0-47.8-21.1-47.8-48.7c0-27.8%2C20.5-48.7%2C47.8-48.7c28.3%2C0%2C47.7%2C21.8%2C47.7%2C48.4%0A%09%09%09C598%2C102.2%2C597.8%2C104.6%2C597.5%2C107.1z%20M528.4%2C90h44.7c-3.5-11.3-11.6-17.4-22.8-17.4C539.2%2C72.7%2C531.3%2C79.1%2C528.4%2C90z%22%2F%3E%0A%09%09%3Cpath%20id%3D%22XMLID_599_%22%20class%3D%22st2%22%20d%3D%22M704.7%2C107.1h-69.8c2.2%2C12.6%2C10.4%2C19.5%2C22.5%2C19.5c8.7%2C0%2C15.8-4.1%2C19.6-10.7h26.2%0A%09%09%09c-6.7%2C20.1-24.4%2C32.9-45.8%2C32.9c-27.2%2C0-47.8-21.1-47.8-48.7c0-27.8%2C20.5-48.7%2C47.8-48.7c28.3%2C0%2C47.7%2C21.8%2C47.7%2C48.4%0A%09%09%09C705.2%2C102.2%2C705%2C104.6%2C704.7%2C107.1z%20M635.6%2C90h44.7c-3.5-11.3-11.6-17.4-22.8-17.4C646.4%2C72.7%2C638.5%2C79.1%2C635.6%2C90z%22%2F%3E%0A%09%09%3Cpath%20id%3D%22XMLID_597_%22%20class%3D%22st2%22%20d%3D%22M780.2%2C124v22.2h-17.7c-20.3%2C0-32.7-12.5-32.7-32.9V74h-16.7v-5.4l36.4-38.7h4.8V54h25.4v20%0A%09%09%09h-25v35.9c0%2C8.9%2C5.1%2C14%2C14.2%2C14H780.2z%22%2F%3E%0A%09%3C%2Fg%3E%0A%09%3Cpath%20id%3D%22XMLID_595_%22%20class%3D%22st2%22%20d%3D%22M85.1%2C130.6L42.2%2C87.7c-6.5%2C6.2-18.3%2C19.7-1.5%2C39.4c8.3%2C8.3%2C34.2%2C34.3%2C34.2%2C34.2%0A%09%09c2.7%2C2.7%2C6.4%2C4.2%2C10.2%2C4.2c3.8%2C0%2C7.5-1.5%2C10.2-4.2l29.4-29.4C104.3%2C152.3%2C87.7%2C133.2%2C85.1%2C130.6z%22%2F%3E%0A%09%3Cpath%20id%3D%22XMLID_594_%22%20class%3D%22st3%22%20d%3D%22M40.4%2C84l44.7-44.6c-2.6-2.6-19.2-21.7-39.6-1.3L8.7%2C74.7C6%2C77.4%2C4.5%2C81.1%2C4.5%2C84.9%0A%09%09S6%2C92.4%2C8.7%2C95.1l20.8%2C20.8C23%2C98.7%2C37%2C87.2%2C40.4%2C84z%22%2F%3E%0A%09%3Cpath%20id%3D%22XMLID_593_%22%20class%3D%22st2%22%20d%3D%22M85.1%2C39.3L128%2C82.2c6.5-6.2%2C18.3-19.7%2C1.5-39.4c-8.3-8.3-34.2-34.3-34.2-34.2%0A%09%09c-2.7-2.7-6.4-4.2-10.2-4.2c-3.8%2C0-7.5%2C1.5-10.2%2C4.2L45.4%2C38C65.8%2C17.6%2C82.5%2C36.7%2C85.1%2C39.3z%22%2F%3E%0A%09%3Cpath%20id%3D%22XMLID_592_%22%20class%3D%22st3%22%20d%3D%22M129.8%2C85.9l-44.7%2C44.6c2.6%2C2.6%2C19.2%2C21.7%2C39.6%2C1.3l36.7-36.7c2.7-2.7%2C4.2-6.4%2C4.2-10.2%0A%09%09c0-3.8-1.5-7.5-4.2-10.2L140.7%2C54C147.2%2C71.2%2C133.2%2C82.7%2C129.8%2C85.9z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20id%3D%22Forme_seule%22%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A") no-repeat;
+  margin-top: 1px;
+  height: 100%;
+  width: 85px;
+}
+.woleet-widget .widget > .head .mini-button {
+  float: left;
+  margin-left: 5px;
+  background-size: 100% !important;
+  height: 24px;
+  width: 24px;
+}
+.woleet-widget .widget > .head .receipt-button {
+  float: left;
+  color: #343a40;
+  white-space: nowrap;
+  font-size: x-small;
+  border: none;
+  border-radius: 3px;
+  display: block;
+  padding: 5px 5px;
+}
+.woleet-widget .widget > .head .receipt-button:active {
+  position: relative;
+  top: 1px;
+}
+.woleet-widget .widget > .head .receipt-button:focus {
+  outline: none;
+}
+.woleet-widget .widget > .head .mini-button.reset {
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%20%20%20version%3D%221.0%22%0A%20%20%20width%3D%2242%22%0A%20%20%20height%3D%2241%22%0A%20%20%20id%3D%22svg2%22%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs4%22%3E%0A%20%20%20%20%3ClinearGradient%0A%20%20%20%20%20%20%20id%3D%22linearGradient2218%22%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2220%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A1%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2222%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A0%22%0A%20%20%20%20%20%20%20%20%20offset%3D%221%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3ClinearGradient%0A%20%20%20%20%20%20%20id%3D%22linearGradient2204%22%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2206%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A0%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2212%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A0%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220.5%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2214%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A0.06060606%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220.75%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2208%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23000000%3Bstop-opacity%3A0.24892704%22%0A%20%20%20%20%20%20%20%20%20offset%3D%221%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3ClinearGradient%0A%20%20%20%20%20%20%20id%3D%22linearGradient2196%22%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2198%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23ffffff%3Bstop-opacity%3A1%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2200%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23ffffff%3Bstop-opacity%3A0%22%0A%20%20%20%20%20%20%20%20%20offset%3D%221%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3ClinearGradient%0A%20%20%20%20%20%20%20id%3D%22linearGradient2184%22%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2186%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23ffffff%3Bstop-opacity%3A1%22%0A%20%20%20%20%20%20%20%20%20offset%3D%220%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%0A%20%20%20%20%20%20%20%20%20id%3D%22stop2188%22%0A%20%20%20%20%20%20%20%20%20style%3D%22stop-color%3A%23ffffff%3Bstop-opacity%3A0%22%0A%20%20%20%20%20%20%20%20%20offset%3D%221%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3CradialGradient%0A%20%20%20%20%20%20%20cx%3D%2223.821341%22%0A%20%20%20%20%20%20%20cy%3D%2219.220688%22%0A%20%20%20%20%20%20%20r%3D%2220.724566%22%0A%20%20%20%20%20%20%20fx%3D%2223.821341%22%0A%20%20%20%20%20%20%20fy%3D%2211.559587%22%0A%20%20%20%20%20%20%20id%3D%22radialGradient2190%22%0A%20%20%20%20%20%20%20xlink%3Ahref%3D%22%23linearGradient2196%22%0A%20%20%20%20%20%20%20gradientUnits%3D%22userSpaceOnUse%22%20%2F%3E%0A%20%20%20%20%3CradialGradient%0A%20%20%20%20%20%20%20cx%3D%2221.955513%22%0A%20%20%20%20%20%20%20cy%3D%2241.559357%22%0A%20%20%20%20%20%20%20r%3D%2220.724566%22%0A%20%20%20%20%20%20%20fx%3D%2221.955513%22%0A%20%20%20%20%20%20%20fy%3D%2243.898674%22%0A%20%20%20%20%20%20%20id%3D%22radialGradient2194%22%0A%20%20%20%20%20%20%20xlink%3Ahref%3D%22%23linearGradient2184%22%0A%20%20%20%20%20%20%20gradientUnits%3D%22userSpaceOnUse%22%0A%20%20%20%20%20%20%20gradientTransform%3D%22matrix(0.592713%2C-6.494147e-8%2C6.494147e-8%2C0.592713%2C10.80802%2C15.56962)%22%20%2F%3E%0A%20%20%20%20%3CradialGradient%0A%20%20%20%20%20%20%20cx%3D%2220.053436%22%0A%20%20%20%20%20%20%20cy%3D%2219.070505%22%0A%20%20%20%20%20%20%20r%3D%2220.724566%22%0A%20%20%20%20%20%20%20fx%3D%2220.053436%22%0A%20%20%20%20%20%20%20fy%3D%2219.070505%22%0A%20%20%20%20%20%20%20id%3D%22radialGradient2210%22%0A%20%20%20%20%20%20%20xlink%3Ahref%3D%22%23linearGradient2204%22%0A%20%20%20%20%20%20%20gradientUnits%3D%22userSpaceOnUse%22%0A%20%20%20%20%20%20%20gradientTransform%3D%22matrix(1.602242%2C0%2C0%2C1.602242%2C-13.98654%2C-13.89271)%22%20%2F%3E%0A%20%20%20%20%3CradialGradient%0A%20%20%20%20%20%20%20cx%3D%2224.416874%22%0A%20%20%20%20%20%20%20cy%3D%2242.401985%22%0A%20%20%20%20%20%20%20r%3D%2223.702232%22%0A%20%20%20%20%20%20%20fx%3D%2224.416874%22%0A%20%20%20%20%20%20%20fy%3D%2246.508305%22%0A%20%20%20%20%20%20%20id%3D%22radialGradient2224%22%0A%20%20%20%20%20%20%20xlink%3Ahref%3D%22%23linearGradient2218%22%0A%20%20%20%20%20%20%20gradientUnits%3D%22userSpaceOnUse%22%0A%20%20%20%20%20%20%20gradientTransform%3D%22matrix(1%2C0%2C0%2C0.226131%2C0%2C32.8136)%22%20%2F%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%0A%20%20%20%20%20d%3D%22M%2020.220402%2C7.4979363%20C%2016.037585%2C7.8234543%2012.412426%2C10.437636%2010.453969%2C14.143109%20L%207.1622195%2C12.140854%20L%208.4136285%2C21.426674%20L%2017.608766%2C18.495837%20L%2014.235402%2C16.435546%20C%2015.511857%2C13.988397%2017.910375%2C12.290923%2020.682879%2C12.140854%20C%2020.816358%2C12.133629%2020.955797%2C12.140854%2021.090948%2C12.140854%20C%2024.16566%2C12.140854%2026.827164%2C13.722722%2028.109722%2C16.474405%20L%2032.7617%2C16.474405%20C%2031.263117%2C11.104796%2026.609662%2C7.4979363%2021.090948%2C7.4979363%20C%2020.906991%2C7.4979363%2020.728834%2C7.4893193%2020.546857%2C7.4979363%20C%2020.470999%2C7.5015292%2020.404714%2C7.4928663%2020.329221%2C7.4979363%20C%2020.288779%2C7.5006533%2020.260738%2C7.4947973%2020.220402%2C7.4979363%20z%20M%2032.788904%2C18.640928%20L%2024.57313%2C22.848565%20L%2027.9737%2C24.502601%20C%2026.644787%2C27.101396%2024.059967%2C28.855329%2021.090948%2C28.855329%20C%2018.016235%2C28.85533%2015.354732%2C27.273461%2014.072174%2C24.521779%20L%209.4201965%2C24.521779%20C%2010.918779%2C29.891387%2015.572234%2C33.498239%2021.090948%2C33.498239%20C%2025.820657%2C33.498239%2029.90101%2C30.620415%2031.918358%2C26.417802%20L%2035.019677%2C27.926747%20L%2032.788904%2C18.640928%20z%22%0A%20%20%20%20%20id%3D%22path2209%22%0A%20%20%20%20%20style%3D%22fill%3A%23ffffff%3Bfill-opacity%3A1%3Bstroke%3Anone%3Bstroke-width%3A1%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Amiter%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-dashoffset%3A0%3Bstroke-opacity%3A1%22%20%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat;
+}
+.woleet-widget .widget > .head .mini-button.cancel {
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%20%20%20%20%20viewBox%3D%220%200%20426%20426%22%20preserveAspectRatio%3D%22xMinYMid%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20style%3D%22fill%3A%23F05228%3B%22%20d%3D%22M213.333%2C0C95.514%2C0%2C0%2C95.514%2C0%2C213.333s95.514%2C213.333%2C213.333%2C213.333%0As213.333-95.514%2C213.333-213.333S331.153%2C0%2C213.333%2C0z%20M330.995%2C276.689l-54.302%2C54.306l-63.36-63.356l-63.36%2C63.36l-54.302-54.31%0Al63.356-63.356l-63.356-63.36l54.302-54.302l63.36%2C63.356l63.36-63.356l54.302%2C54.302l-63.356%2C63.36L330.995%2C276.689z%22%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat, #fff;
+  border-radius: 50%;
+}
+.woleet-widget .widget > .body {
+  height: 70px;
+  box-sizing: content-box;
+  font-size: medium;
+}
+.woleet-widget .widget > .body * {
+  box-sizing: border-box;
+}
+.woleet-widget .widget > .body.expanded {
+  height: auto;
+}
+.woleet-widget .widget > .body.expanded .infoZone .infoZoneItem {
+  border-top: 1px solid #4814ad;
+  overflow: hidden;
+}
+.woleet-widget .widget > .body.expanded .infoZone .infoZoneItem:first-child {
+  border-top: none;
+}
+.woleet-widget .widget > .body.expanded .infoZone .infoZoneItem.reduced {
+  height: 24px;
+  display: block;
+  padding: 5px 0;
+  background-origin: content-box;
+  background-position-x: 20px;
+}
+.woleet-widget .widget > .body.expanded .infoZone .infoZoneItem.reduced > .text {
+  text-align: left;
+  padding-left: 70px;
+}
+.woleet-widget .widget > .body > div {
+  animation: fly 0.5s ease;
+  transform-origin: center;
+  box-sizing: content-box;
+}
+.woleet-widget .widget > .body .dropZoneContainer {
+  border-radius: 2px;
+  border: 2px dashed;
+  color: #4814ad;
+  height: 34px;
+  overflow: hidden;
+  padding: 1em 0;
+  text-align: center;
+}
+.woleet-widget .widget > .body .dropZoneContainer .dropZone {
+  margin-top: -5em;
+  outline: none;
+  padding-top: 5em;
+  opacity: 0;
+  width: 100%;
+  position: relative;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem {
+  transition: height 0.5s, background-position 0.5s;
+  display: none;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem > .text {
+  transition: padding-top 0.5s;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.ok {
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%20%20%20%20%20viewBox%3D%220%200%20426%20426%22%20preserveAspectRatio%3D%22xMinYMid%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20style%3D%22fill%3A%2305B8C0%3B%22%20d%3D%22M213.333%2C0C95.518%2C0%2C0%2C95.514%2C0%2C213.333s95.518%2C213.333%2C213.333%2C213.333%0Ac117.828%2C0%2C213.333-95.514%2C213.333-213.333S331.157%2C0%2C213.333%2C0z%20M174.199%2C322.918l-93.935-93.931l31.309-31.309l62.626%2C62.622%0Al140.894-140.898l31.309%2C31.309L174.199%2C322.918z%22%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.info {
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%09%20viewBox%3D%220%200%20426%20426%22%20preserveAspectRatio%3D%22xMinYMid%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20style%3D%22fill%3A%2303A9F4%3B%22%20d%3D%22M213.338%2C0C95.509%2C0%2C0%2C95.497%2C0%2C213.325c0%2C117.854%2C95.509%2C213.342%2C213.338%2C213.342%0Ac117.82%2C0%2C213.329-95.488%2C213.329-213.342C426.667%2C95.497%2C331.157%2C0%2C213.338%2C0z%20M213.333%2C99.49%0Ac14.793%2C0%2C26.786%2C11.994%2C26.786%2C26.786s-11.998%2C26.782-26.786%2C26.782s-26.786-11.994-26.786-26.782%0AC186.547%2C111.484%2C198.541%2C99.49%2C213.333%2C99.49z%20M260.207%2C327.181H166.46v-40.183h20.087v-80.358H166.46V166.46h73.664v40.179%0Av80.358h20.087v40.183H260.207z%22%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.error {
+  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%20%20%20%20%20viewBox%3D%220%200%20426%20426%22%20preserveAspectRatio%3D%22xMinYMid%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20style%3D%22fill%3A%23F05228%3B%22%20d%3D%22M213.333%2C0C95.514%2C0%2C0%2C95.514%2C0%2C213.333s95.514%2C213.333%2C213.333%2C213.333%0As213.333-95.514%2C213.333-213.333S331.153%2C0%2C213.333%2C0z%20M330.995%2C276.689l-54.302%2C54.306l-63.36-63.356l-63.36%2C63.36l-54.302-54.31%0Al63.356-63.356l-63.356-63.36l54.302-54.302l63.36%2C63.356l63.36-63.356l54.302%2C54.302l-63.356%2C63.36L330.995%2C276.689z%22%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.expanded {
+  height: 70px;
+  display: block;
+  padding: 5px 0;
+  background-origin: content-box;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.expanded > .text {
+  padding-left: 70px;
+}
+.woleet-widget .widget > .body .infoZone .infoZoneItem.expanded > a {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+.woleet-widget .widget > .body .hashZone span {
+  font-size: small;
+  color: #888;
+}
+.woleet-widget .widget > .body .hashZone .progressBarContainer {
+  width: 100%;
+  margin: 15px 0 10px 0;
+  height: 1em;
+  border-radius: 4px;
+  background: #e4e4e4;
+}
+.woleet-widget .widget > .body .hashZone .progressBarContainer .progressBar {
+  height: 1em;
+  width: 0;
+  animation: progress-bar-stripes 2s linear infinite;
+  background: rgba(139, 195, 74, 0.65) linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+  transition: width 0.6s ease;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+.woleet-widget .widget > .foot {
+  float: right;
+  padding: 0;
+  border-radius: 0;
+}
+.woleet-widget .widget > .foot * {
+  box-sizing: border-box;
+}
+.woleet-widget .widget > .foot > .expand {
+  height: 30px;
+  background: #4814ad;
+  width: 45px;
+  border-radius: 8px 0 0 0;
+  margin-top: -27px;
+  line-height: 28px;
+  text-align: right;
+  font-size: medium;
+  padding: 1px 5px;
+  color: #f8f9fa;
+}
+.woleet-widget .widget > .foot > .up-arrow {
+  background: #4814ad url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0A%20%20%20%20%20width%3D%22444.819px%22%20height%3D%22444.819px%22%20viewBox%3D%220%200%20444.819%20444.819%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20style%3D%22fill%3A%23f6f6f6%3B%22%20d%3D%22M433.968%2C278.657L248.387%2C92.79c-7.419-7.044-16.08-10.566-25.977-10.566c-10.088%2C0-18.652%2C3.521-25.697%2C10.566%0AL10.848%2C278.657C3.615%2C285.887%2C0%2C294.549%2C0%2C304.637c0%2C10.28%2C3.619%2C18.843%2C10.848%2C25.693l21.411%2C21.413%0Ac6.854%2C7.23%2C15.42%2C10.852%2C25.697%2C10.852c10.278%2C0%2C18.842-3.621%2C25.697-10.852L222.41%2C213.271L361.168%2C351.74%0Ac6.848%2C7.228%2C15.413%2C10.852%2C25.7%2C10.852c10.082%2C0%2C18.747-3.624%2C25.975-10.852l21.409-21.412%0Ac7.043-7.043%2C10.567-15.608%2C10.567-25.693C444.819%2C294.545%2C441.205%2C285.884%2C433.968%2C278.657z%22%2F%3E%0A%3C%2Fsvg%3E%0A") no-repeat 15px 5px;
+  background-size: 20px;
+}
+.woleet-widget .widget .hidden {
+  display: none !important;
+}
+.woleet-widget .widget .text {
+  color: #333;
+  font-size: medium;
+}
+.woleet-widget .widget .small {
+  font-size: small;
+}
+.woleet-widget .widget .x-small {
+  font-size: x-small;
+}
+.woleet-widget .widget .warn {
+  color: #f05228;
+}
+.woleet-widget .widget .clickable:hover {
+  cursor: pointer;
+}
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes fly {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+@keyframes reduce {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
