@@ -23,7 +23,7 @@ This web widget uses the [Woleet web libraries](https://github.com/woleet/woleet
 You can use npm to add Woleet web libraries to your project:
 
 ```bash
-npm i woleet-widget
+npm i @woleet/woleet-widget
 ```
 ***In this documentation, it is supposed that npm is used to install Woleet verification widget.***
 

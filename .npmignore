@@ -1,3 +1,6 @@
+# Exclude examples
+examples
+
 # macOS
 .DS_Store
 
@@ -5,8 +8,10 @@
 **/.idea/
 **/*.iml
 
-# Node module
+# Node modules
 **/node_modules
 
-*.tgz
-*.log
+# Other files
+.gitignore
+build.sh
+gulpfile.js
