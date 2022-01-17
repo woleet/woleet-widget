@@ -58,5 +58,5 @@ To insert the Woleet verification widget into a web page, create a `<div>` of th
 If you want the widget to automatically verify a given file/hash, specify the hash to verify in the `data-hash`property:
 
 ```html
-<div class="woleet-widget" data-hash="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"></div>
+<div class="woleet-widget" data-hash="6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"></div>
 ```

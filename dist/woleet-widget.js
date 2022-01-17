@@ -263,47 +263,47 @@
         });
       } // We just entered a new hash|file to verify
       else {
-          var woleetDAB = function woleetDAB(hash) {
-            setVue('pending', 'Verifying proof(s)... ');
-            return woleet.verify.WoleetDAB(hash, setProgress).then(function (results) {
-              state.state = 'done';
-              addResults(results.sort(function (b, a) {
-                return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0;
-              }));
-            }).catch(function (err) {
-              // As we use cross-domain, it is difficult to know where the error come from,
-              // so we guess that the Woleet API isn't available and set state to need-receipt
-              // if the error came from network
-              if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
-                state.state = 'needReceipt';
-                setVue('need-receipt');
-              } else {
-                setVue('error', err);
-              }
-            });
-          };
+        var woleetDAB = function woleetDAB(hash) {
+          setVue('pending', 'Verifying proof(s)... ');
+          return woleet.verify.WoleetDAB(hash, setProgress).then(function (results) {
+            state.state = 'done';
+            addResults(results.sort(function (b, a) {
+              return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0;
+            }));
+          }).catch(function (err) {
+            // As we use cross-domain, it is difficult to know where the error come from,
+            // so we guess that the Woleet API isn't available and set state to need-receipt
+            // if the error came from network
+            if (err.hasOwnProperty('code') || err.message === 'need-receipt') {
+              state.state = 'needReceipt';
+              setVue('need-receipt');
+            } else {
+              setVue('error', err);
+            }
+          });
+        };
 
-          if (typeof file === 'string') {
-            state.hash = file;
-            return woleetDAB(state.hash);
-          } else {
-            setVue('hashing');
-            return new Promise(function (resolve, reject) {
-              hasher.start(file);
-              hasher.on('progress', setProgress);
-              hasher.on('error', function (err) {
-                return setVue('error', err.error || err.message);
-              });
-              hasher.on('result', function (r) {
-                state.hash = r.result;
-                setProgress({
-                  progress: 0
-                });
-                resolve(woleetDAB(state.hash));
-              });
+        if (typeof file === 'string') {
+          state.hash = file;
+          return woleetDAB(state.hash);
+        } else {
+          setVue('hashing');
+          return new Promise(function (resolve, reject) {
+            hasher.start(file);
+            hasher.on('progress', setProgress);
+            hasher.on('error', function (err) {
+              return setVue('error', err.error || err.message);
             });
-          }
+            hasher.on('result', function (r) {
+              state.hash = r.result;
+              setProgress({
+                progress: 0
+              });
+              resolve(woleetDAB(state.hash));
+            });
+          });
         }
+      }
     }
 
     function forceReceipt() {
